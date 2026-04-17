@@ -7,11 +7,11 @@
 #include "Manager/FPSManager.h"
 #include "Manager/InputManager.h"
 #include "Manager/SceneManager.h"
-#include "App.h"
+#include "Application.h"
 
-App* App::instance_ = nullptr;
+Application* Application::instance_ = nullptr;
 
-bool App::Init() {
+bool Application::Init() {
 	// システム初期化
 	if (SystemInit() == false) return false;
 
@@ -21,7 +21,7 @@ bool App::Init() {
 	return true;
 }
 
-void App::GameLoop() {
+void Application::GameLoop() {
 	while (!ProcessMessage() && !exit_) {
 		// 更新処理
 		Update();
@@ -34,7 +34,7 @@ void App::GameLoop() {
 	}
 }
 
-bool App::Release() {
+bool Application::Release() {
 	AudioManager::DeleteInstance();
 
 	FontManager::GetInstance().Release();
@@ -55,11 +55,11 @@ bool App::Release() {
 	return true;
 }
 
-void App::Quit() {
+void Application::Quit() {
 	exit_ = true;
 }
 
-bool App::SystemInit() {
+bool Application::SystemInit() {
 	// ウインドウの名称
 	SetWindowText("知性の立方体");
 
@@ -91,18 +91,9 @@ bool App::SystemInit() {
 	return true;
 }
 
-bool App::ClassInit() {
+bool Application::ClassInit() {
 	// AudioManager
 	AudioManager::CreateInstance();
-
-	AudioManager::GetInstance().LoadSE("回転", "Data/Sound/rollrock.wav");
-	AudioManager::GetInstance().LoadSE("トラップ設置", "Data/Sound/AS_817822_ポン（デジタル・ボタン・決定・クリック）.wav");
-	AudioManager::GetInstance().LoadSE("トラップ起動", "Data/Sound/AS_792784_ビン（エラー音、アラート音）.wav");
-	AudioManager::GetInstance().LoadSE("強化トラップ起動", "Data/Sound/AS_459510_SF／UI／ドゥーン／電子.wav", 1.1f);
-	AudioManager::GetInstance().LoadSE("キューブ消滅", "Data/Sound/AS_251915_カットイン／バシュッ／場面転換.wav");
-	AudioManager::GetInstance().LoadSE("足場崩壊", "Data/Sound/AS_857401_ビル崩壊_崩れる音.wav", 1.15f);
-	AudioManager::GetInstance().LoadSE("パーフェクト", "Data/Sound/AS_1239388_perfect（低音）.wav");
-	AudioManager::GetInstance().LoadSE("足音", "Data/Sound/AS_369837_革靴足音：走り：リバーブ.wav");
 	
 	// FontManager
 	FontManager::CreateInstance();
@@ -118,40 +109,29 @@ bool App::ClassInit() {
 
 	// InputManager
 	InputManager::CreateInstance();
-	InputManager::GetInstance().Init();
+	{
+		auto& ins = InputManager::GetInstance();
+		using tag = InputManager::TAGS;
+		using btn = Gamepad::RAW_BUTTON;
 
-	InputManager::GetInstance().AddInputMap("移動上",
-		InputManager::BUTTONS::DPAD_U, InputManager::BUTTONS::LSTICK_U,
-		KEY_INPUT_W, KEY_INPUT_UP);
-	InputManager::GetInstance().AddInputMap("移動下",
-		InputManager::BUTTONS::DPAD_D, InputManager::BUTTONS::LSTICK_D,
-		KEY_INPUT_S, KEY_INPUT_DOWN);
-	InputManager::GetInstance().AddInputMap("移動左",
-		InputManager::BUTTONS::DPAD_L, InputManager::BUTTONS::LSTICK_L,
-		KEY_INPUT_A, KEY_INPUT_LEFT);
-	InputManager::GetInstance().AddInputMap("移動右",
-		InputManager::BUTTONS::DPAD_R, InputManager::BUTTONS::LSTICK_R,
-		KEY_INPUT_D, KEY_INPUT_RIGHT);
+		ins.AddMap(1, tag::MOVE_UP,
+			{ { btn::DPAD_U, btn::LSTICK_U }, { KEY_INPUT_W, KEY_INPUT_UP } });
 
-	InputManager::GetInstance().AddInputMap("ワナ",
-		InputManager::BUTTONS::BUTTON_0, InputManager::BUTTONS::NONE,
-		KEY_INPUT_J, KEY_INPUT_C);
-	InputManager::GetInstance().AddInputMap("スーパーワナ",
-		InputManager::BUTTONS::BUTTON_2, InputManager::BUTTONS::NONE,
-		KEY_INPUT_K, KEY_INPUT_X);
-	InputManager::GetInstance().AddInputMap("高速送り",
-		InputManager::BUTTONS::BUTTON_3, InputManager::BUTTONS::NONE,
-		KEY_INPUT_L, KEY_INPUT_Z);
-	InputManager::GetInstance().AddInputMap("ポーズ",
-		InputManager::BUTTONS::BUTTON_6, InputManager::BUTTONS::BUTTON_7,
-		KEY_INPUT_BACK, KEY_INPUT_ESCAPE);
+		ins.AddMap(1, tag::MOVE_DOWN,
+			{ { btn::DPAD_D, btn::LSTICK_D }, { KEY_INPUT_S, KEY_INPUT_DOWN } });
 
-	InputManager::GetInstance().AddInputMap("決定",
-		InputManager::BUTTONS::BUTTON_7, InputManager::BUTTONS::NONE,
-		KEY_INPUT_RETURN, 0x00);
-	InputManager::GetInstance().AddInputMap("戻る",
-		InputManager::BUTTONS::BUTTON_1, InputManager::BUTTONS::NONE,
-		KEY_INPUT_BACK, KEY_INPUT_ESCAPE);
+		ins.AddMap(1, tag::MOVE_LEFT,
+			{ { btn::DPAD_L, btn::LSTICK_L }, { KEY_INPUT_A, KEY_INPUT_LEFT } });
+
+		ins.AddMap(1, tag::MOVE_RIGHT,
+			{ { btn::DPAD_R, btn::LSTICK_R }, { KEY_INPUT_D, KEY_INPUT_RIGHT } });
+
+		ins.AddMap(1, tag::START,
+			{ { btn::BUTTON_7, btn::NONE }, { KEY_INPUT_RETURN, 0x00 } });
+
+		ins.AddMap(1, tag::SELECT,
+			{ { btn::BUTTON_6, btn::NONE }, { KEY_INPUT_BACK, KEY_INPUT_ESCAPE } });
+	}
 
 	// SceneManager
 	SceneManager::CreateInstance();
@@ -160,7 +140,7 @@ bool App::ClassInit() {
 	return true;
 }
 
-void App::Update() {
+void Application::Update() {
 	InputManager::GetInstance().Update();
 
 	FPSManager::GetInstance().Update(
@@ -169,7 +149,7 @@ void App::Update() {
 	SceneManager::GetInstance().Update();
 }
 
-void App::Draw() {
+void Application::Draw() {
 	// 描画先の画面をクリア
 	ClearDrawScreen();
 

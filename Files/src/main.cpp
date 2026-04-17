@@ -1,17 +1,17 @@
 #include <Windows.h>
-#include "App.h"
+#include "Application.h"
 
 // できるだけ簡潔にコードを書くため、#include と行数は減らすこと
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, int nCmdShow) {
-	App::CreateInstance();
+	Application::CreateInstance();
 
-	if (!App::GetInstance().Init()) return -1;
+	if (!Application::GetInstance().Init()) return -1;
 
-	App::GetInstance().GameLoop();
+	Application::GetInstance().GameLoop();
 
-	if (!App::GetInstance().Release()) return -1;
-	App::DeleteInstance();
+	if (!Application::GetInstance().Release()) return -1;
+	Application::DeleteInstance();
 
 	return 0;
 }

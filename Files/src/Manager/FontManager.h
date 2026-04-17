@@ -8,7 +8,7 @@ public:
 		int size;
 	};
 
-	static void CreateInstance() { if (instance_ == nullptr) instance_ = new FontManager; }
+	static void CreateInstance() { if (instance_ == nullptr) instance_ = new FontManager; instance_->Init(); }
 	static FontManager& GetInstance() { return *instance_; }
 	static void DeleteInstance() { if (instance_ != nullptr) delete instance_; instance_ = nullptr; }
 

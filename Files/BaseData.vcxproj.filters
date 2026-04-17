@@ -11,7 +11,7 @@
     <ClCompile Include="src\Manager\FPSManager.cpp" />
     <ClCompile Include="src\Manager\InputManager.cpp" />
     <ClCompile Include="src\Manager\SceneManager.cpp" />
-    <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Manager\Gamepad.cpp" />
     <ClCompile Include="src\Scene\SceneBase.cpp" />
@@ -27,7 +27,7 @@
     <ClInclude Include="src\Manager\FPSManager.h" />
     <ClInclude Include="src\Manager\InputManager.h" />
     <ClInclude Include="src\Manager\SceneManager.h" />
-    <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Manager\Gamepad.h" />
     <ClInclude Include="src\Scene\SceneBase.h" />
   </ItemGroup>

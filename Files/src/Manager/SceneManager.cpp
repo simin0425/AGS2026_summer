@@ -1,18 +1,19 @@
 #include <DxLib.h>
-#include "../App.h"
+#include "../Application.h"
 #include "../Common/Fader.h"
 //#include "../Scene/TitleScene/TitleScene.h"
 //#include "../Scene/DemoScene/DemoScene.h"
 //#include "../Scene/GameScene/GameScene.h"
 //#include "../Scene/ResultScene/ResultScene.h"
 //#include "../Scene/Pause/Pause.h"
+#include "FPSManager.h"
 #include "SceneManager.h"
 
 SceneManager* SceneManager::instance_ = nullptr;
 
 bool SceneManager::Init() {
-	ClassInit();
-	ParamInit();
+	InitClass();
+	InitParam();
 	return true;
 }
 
@@ -101,13 +102,13 @@ void SceneManager::SetLastScore(unsigned int u) { lastScore_ = u; }
 
 unsigned int SceneManager::GetLastScore() const { return lastScore_; }
 
-bool SceneManager::ClassInit() {
+bool SceneManager::InitClass() {
 	fader_ = new Fader();
 
 	return true;
 }
 
-void SceneManager::ParamInit() {
+void SceneManager::InitParam() {
 	// 3D 描画機能の有効化
 	// Zバッファを有効にする
 	SetUseZBuffer3D(true);
@@ -123,9 +124,6 @@ void SceneManager::ParamInit() {
 
 	// 正面から斜め下に向かったライト
 	ChangeLightTypeDir({ 0.0F, -1.0F, 0.8F });
-
-	// デルタタイム
-	preTime_ = std::chrono::system_clock::now();
 
 	// 最初はタイトル画面から
 	ChangeScene(SceneBase::SCENE::TITLE);
@@ -172,7 +170,7 @@ bool SceneManager::Fade() {
 				fader_->SetFadeMode(Fader::FADE_MODE::FADE_IN, 60U, 120U);
 			}
 			else {
-				App::GetInstance().Quit();
+				Application::GetInstance().Quit();
 				return true;
 			}
 		}

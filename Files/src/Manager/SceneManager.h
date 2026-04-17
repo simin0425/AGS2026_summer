@@ -47,17 +47,17 @@ private:
 	std::chrono::system_clock::time_point preTime_;
 	float deltaTime_;
 
-	bool ClassInit();
-	void ParamInit();
-
-	void ChangeScene(SceneBase::SCENE);
-	bool Fade();
-	void DoChangeScene(SceneBase::SCENE);
-
 	unsigned int nextStartStage_;
 	bool isPause_;
 	bool prevPause_;
 	SceneBase::SCENE waitSceneId_;
 	unsigned int lastScore_;
+
+	bool InitClass();
+	void InitParam();
+
+	void ChangeScene(SceneBase::SCENE);
+	bool Fade();
+	void DoChangeScene(SceneBase::SCENE);
 
 };

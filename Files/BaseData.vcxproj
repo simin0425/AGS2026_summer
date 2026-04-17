@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Manager\Gamepad.cpp" />
-    <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Common\Fader.cpp" />
     <ClCompile Include="src\Common\Geometry.cpp" />
     <ClCompile Include="src\Common\GeometryDxLib.cpp" />
@@ -36,7 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Manager\Gamepad.h" />
-    <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Common\Fader.h" />
     <ClInclude Include="src\Common\Geometry.h" />
     <ClInclude Include="src\Common\GeometryDxLib.h" />
