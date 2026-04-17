@@ -15,7 +15,7 @@ public:
 	};
 
 	// システム初期化関数
-	virtual bool SystemInit() { return false; }
+	virtual bool SystemInit(SCENE scene, int sub_scene);
 	// 初期化関数
 	virtual bool GameInit() { return false; }
 	// 更新関数
@@ -29,12 +29,16 @@ public:
 	// 解放関数
 	virtual bool Release() { return false; }
 
-	void SetScene(SCENE);
 	SCENE GetMyScene() const;
 	SCENE GetNextScene() const;
 
 protected:
+	// 自分のシーン
 	SCENE myScene_;
+	// 遷移先のシーン
 	SCENE nextScene_;
+	// 自分のサブシーン
+	// （主にタイトルシーンからの遷移時に参照する、ステージ数や初期カーソル位置などを指定するための変数）
+	int subScene_;
 
 };
