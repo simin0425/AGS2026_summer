@@ -6,7 +6,7 @@
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
-x64/
+**/x64/
 x86/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
@@ -20,7 +20,23 @@ bld/
 
 
 # VisualStudio キャッシュフォルダ
-.vs/
+**/.vs/
 
 # DxLibのログファイル
 Log.txt
+
+# プリコンパイル済みヘッダ
+*.ipch
+
+# データベース系
+*.db
+*.VC.db
+# デバッグ関連
+*.pdb
+*.ilk
+
+# ユーザー固有設定
+*.vcxproj.user
+
+# 実行ファイル
+*.exe

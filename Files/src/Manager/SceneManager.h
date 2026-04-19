@@ -2,6 +2,7 @@
 #include <chrono>
 #include <list>
 #include "../Scene/SceneBase.h"
+#include "../Scene/GameScene/GameScene.h"
 
 class SceneBase;
 class Fader;
@@ -41,6 +42,8 @@ public:
 	unsigned int GetLastScore() const;
 
 private:
+	GameScene* game_;
+
 	std::list<SceneBase*> sceneList_;
 	Fader* fader_;
 

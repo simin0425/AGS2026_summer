@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Scene\GameOverScene\GameOverScene.cpp" />
+    <ClCompile Include="src\Scene\GameClearScene\GameClearScene.cpp" />
+    <ClCompile Include="src\Scene\GameScene\GameScene.cpp" />
     <ClCompile Include="src\Manager\Gamepad.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Common\Fader.cpp" />
@@ -33,8 +36,12 @@
     <ClCompile Include="src\Manager\InputManager.cpp" />
     <ClCompile Include="src\Manager\SceneManager.cpp" />
     <ClCompile Include="src\Scene\SceneBase.cpp" />
+    <ClCompile Include="src\Scene\TitleScene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Scene\GameOverScene\GameOverScene.h" />
+    <ClInclude Include="src\Scene\GameClearScene\GameClearScene.h" />
+    <ClInclude Include="src\Scene\GameScene\GameScene.h" />
     <ClInclude Include="src\Manager\Gamepad.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Common\Fader.h" />
@@ -48,6 +55,7 @@
     <ClInclude Include="src\Manager\InputManager.h" />
     <ClInclude Include="src\Manager\SceneManager.h" />
     <ClInclude Include="src\Scene\SceneBase.h" />
+    <ClInclude Include="src\Scene\TitleScene\TitleScene.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

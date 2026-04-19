@@ -1,9 +1,11 @@
 #include <DxLib.h>
 #include "../Application.h"
 #include "../Common/Fader.h"
-//#include "../Scene/TitleScene/TitleScene.h"
+#include "../Scene/TitleScene/TitleScene.h"
 //#include "../Scene/DemoScene/DemoScene.h"
-//#include "../Scene/GameScene/GameScene.h"
+#include "../Scene/GameScene/GameScene.h"
+#include "../Scene/GameClearScene/GameClearScene.h"
+#include "../Scene/GameOverScene/GameOverScene.h"
 //#include "../Scene/ResultScene/ResultScene.h"
 //#include "../Scene/Pause/Pause.h"
 #include "FPSManager.h"
@@ -52,6 +54,9 @@ void SceneManager::Update() {
 }
 
 void SceneManager::Draw() {
+	// 画面全体を灰色で塗りつぶす
+	DrawBox(0, 0, 1280, 960, 0x808080, TRUE);
+
 	// 非アクティブのシーンも描画する
 	for (auto scene : sceneList_) {
 		scene->Draw();
@@ -219,22 +224,28 @@ void SceneManager::DoChangeScene(SceneBase::SCENE scene) {
 
 
 		// シーンを切り替える
-		/*switch (scene) {
+		switch (scene) {
 		case SceneBase::SCENE::TITLE:
 			ret = new TitleScene();
 			break;
-		case SceneBase::SCENE::DEMO:
-			ret = new DemoScene();
-			break;
+		//case SceneBase::SCENE::DEMO:
+		//	ret = new DemoScene();
+		//	break;
 		case SceneBase::SCENE::GAME:
-			game = new GameScene();
-			game->SetStageNumber(nextStartStage_);
-			ret = dynamic_cast<SceneBase*>(game);
+			game_ = new GameScene();
+			game_->SetStageNumber(nextStartStage_);
+			ret = dynamic_cast<SceneBase*>(game_);
 			break;
-		case SceneBase::SCENE::RESULT:
-			ret = new ResultScene();
+		case SceneBase::SCENE::CLEAR:
+			ret = new GameClearScene();
 			break;
-		}*/
+		case SceneBase::SCENE::OVER:
+			ret = new GameOverScene();
+			break;
+		//case SceneBase::SCENE::RESULT:
+		//	ret = new ResultScene();
+		//	break;
+		}
 	}
 	else {
 		// ポーズシーン
@@ -242,8 +253,7 @@ void SceneManager::DoChangeScene(SceneBase::SCENE scene) {
 	}
 
 	if (ret != nullptr) {
-		ret->SetScene(scene);
-		ret->SystemInit();
+		ret->SystemInit(scene, 0);
 		ret->GameInit();
 		sceneList_.push_back(ret);
 	}

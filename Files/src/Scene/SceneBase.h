@@ -4,12 +4,11 @@ class SceneBase {
 public:
 	enum class SCENE {
 		NONE,
-
 		PAUSE,
 		KEY_CONFIG,
-
 		TITLE,
 		GAME,
+		CLEAR,
 		OVER,
 
 	};
@@ -31,6 +30,8 @@ public:
 
 	SCENE GetMyScene() const;
 	SCENE GetNextScene() const;
+
+	void SetScene(SCENE scene) { myScene_ = nextScene_ = scene;	}
 
 protected:
 	// é©ï™ÇÃÉVÅ[Éì

@@ -15,6 +15,10 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Manager\Gamepad.cpp" />
     <ClCompile Include="src\Scene\SceneBase.cpp" />
+    <ClCompile Include="src\Scene\GameScene\GameScene.cpp" />
+    <ClCompile Include="src\Scene\TitleScene\TitleScene.cpp" />
+    <ClCompile Include="src\Scene\GameClearScene\GameClearScene.cpp" />
+    <ClCompile Include="src\Scene\GameOverScene\GameOverScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Common\Fader.h" />
@@ -30,5 +34,9 @@
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Manager\Gamepad.h" />
     <ClInclude Include="src\Scene\SceneBase.h" />
+    <ClInclude Include="src\Scene\GameScene\GameScene.h" />
+    <ClInclude Include="src\Scene\TitleScene\TitleScene.h" />
+    <ClInclude Include="src\Scene\GameClearScene\GameClearScene.h" />
+    <ClInclude Include="src\Scene\GameOverScene\GameOverScene.h" />
   </ItemGroup>
 </Project>

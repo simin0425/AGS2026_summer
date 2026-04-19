@@ -109,6 +109,7 @@ bool Application::ClassInit() {
 
 	// InputManager
 	InputManager::CreateInstance();
+	InputManager::GetInstance().Init();
 	{
 		auto& ins = InputManager::GetInstance();
 		using tag = InputManager::TAGS;
