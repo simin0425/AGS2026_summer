@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Manager\Resource.cpp" />
+    <ClCompile Include="src\Manager\ResourceManager.cpp" />
     <ClCompile Include="src\Scene\PauseScene\PauseScene.cpp" />
     <ClCompile Include="src\Scene\ShopScene\ShopScene.cpp" />
     <ClCompile Include="src\Scene\GameOverScene\GameOverScene.cpp" />
@@ -41,6 +43,8 @@
     <ClCompile Include="src\Scene\TitleScene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Manager\Resource.h" />
+    <ClInclude Include="src\Manager\ResourceManager.h" />
     <ClInclude Include="src\Scene\PauseScene\PauseScene.h" />
     <ClInclude Include="src\Scene\ShopScene\ShopScene.h" />
     <ClInclude Include="src\Scene\GameOverScene\GameOverScene.h" />

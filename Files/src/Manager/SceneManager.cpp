@@ -14,13 +14,15 @@
 
 SceneManager* SceneManager::instance_ = nullptr;
 
-bool SceneManager::Init() {
+bool SceneManager::Init()
+{
 	InitClass();
 	InitParam();
 	return true;
 }
 
-void SceneManager::Update() {
+void SceneManager::Update()
+{
 	// デルタタイム更新
 	auto nowTime = std::chrono::system_clock::now();
 	deltaTime_ = static_cast<float>(
@@ -28,7 +30,8 @@ void SceneManager::Update() {
 	preTime_ = nowTime;
 
 	fader_->Update();
-	if (!Fade()) {
+	if (!Fade())
+	{
 		// 中身が無い状態で動かすと色々危ないので
 		if (sceneList_.empty()) return;
 
@@ -47,31 +50,36 @@ void SceneManager::Update() {
 		auto next = back->GetNextScene();
 
 		// 次のシーン != 現在のシーン
-		if (back->GetMyScene() != next) {
+		if (back->GetMyScene() != next)
+		{
 			// シーン遷移
 			ChangeScene(next);
 		}
 	}
 }
 
-void SceneManager::Draw() {
+void SceneManager::Draw()
+{
 	// 画面全体を灰色で塗りつぶす
 	DrawBox(0, 0, 1280, 960, 0xc0c0c0, TRUE);
 
 	// 非アクティブのシーンも描画する
-	for (auto scene : sceneList_) {
+	for (auto scene : sceneList_)
+	{
 		scene->Draw();
 	}
 
 	// フェーダー等の画面エフェクトを挟む
 	fader_->Draw();
 
-	for (auto scene : sceneList_) {
+	for (auto scene : sceneList_)
+	{
 		scene->DrawUI();
 	}
 }
 
-bool SceneManager::Release() {
+bool SceneManager::Release()
+{
 	// シーンが無くなるまで解放する
 	while (sceneList_.size() > 0) ReleaseScene();
 
@@ -83,7 +91,8 @@ bool SceneManager::Release() {
 	return true;
 }
 
-void SceneManager::ReleaseScene() {
+void SceneManager::ReleaseScene()
+{
 	// 現在アクティブなシーンを解放して削除
 	sceneList_.back()->Release();
 	delete sceneList_.back();
@@ -108,13 +117,15 @@ void SceneManager::SetLastScore(unsigned int u) { lastScore_ = u; }
 
 unsigned int SceneManager::GetLastScore() const { return lastScore_; }
 
-bool SceneManager::InitClass() {
+bool SceneManager::InitClass()
+{
 	fader_ = new Fader();
 
 	return true;
 }
 
-void SceneManager::InitParam() {
+void SceneManager::InitParam()
+{
 	// 3D 描画機能の有効化
 	// Zバッファを有効にする
 	SetUseZBuffer3D(true);
@@ -138,44 +149,40 @@ void SceneManager::InitParam() {
 	lastScore_ = 0u;
 }
 
-void SceneManager::ChangeScene(SceneBase::SCENE scene) {
+void SceneManager::ChangeScene(SceneBase::SCENE scene)
+{
 	waitSceneId_ = scene;
 
-	if (sceneList_.empty()) {
+	if (sceneList_.empty())
+	{
 		fader_->ForceSetMode(Fader::FADE_MODE::FADE_OUT);
 		fader_->SetFadeMode(Fader::FADE_MODE::FADE_IN, 60U);
-	}
-	else {
-		if (waitSceneId_ == SceneBase::SCENE::NONE) {
-			fader_->SetFadeMode(Fader::FADE_MODE::FADE_OUT, 60U);
-		}
-		if (waitSceneId_ == SceneBase::SCENE::PAUSE ||
-			sceneList_.back()->GetMyScene() == SceneBase::SCENE::PAUSE && waitSceneId_ == SceneBase::SCENE::GAME) {
-
-			DoChangeScene(waitSceneId_);
-			return;
-		}
 	}
 
 	fader_->SetFadeMode(Fader::FADE_MODE::FADE_OUT, 60U, 0U, 60U);
 }
 
-bool SceneManager::Fade() {
+bool SceneManager::Fade()
+{
 	// 現在のフェードモードを取得
 	auto fmode = fader_->GetFadeMode();
 
-	switch (fmode) {
+	switch (fmode)
+	{
 	case Fader::FADE_MODE::FADE_OUT:
 		// 処理が完了次第
-		if (fader_->IsFadeEnd()) {
+		if (fader_->IsFadeEnd())
+		{
 			// シーンを切り替える
 			DoChangeScene(waitSceneId_);
 
-			if (waitSceneId_ != SceneBase::SCENE::NONE) {
+			if (waitSceneId_ != SceneBase::SCENE::NONE)
+			{
 				// フェードモードをフェードインに
 				fader_->SetFadeMode(Fader::FADE_MODE::FADE_IN, 60U, 120U);
 			}
-			else {
+			else
+			{
 				Application::GetInstance().Quit();
 				return true;
 			}
@@ -183,7 +190,8 @@ bool SceneManager::Fade() {
 		break;
 	case Fader::FADE_MODE::FADE_IN:
 		// 処理が完了次第
-		if (fader_->IsFadeEnd()) {
+		if (fader_->IsFadeEnd())
+		{
 			// フェードモードを無しに
 			fader_->SetFadeMode(Fader::FADE_MODE::NONE, 0U);
 		}
@@ -197,10 +205,12 @@ bool SceneManager::Fade() {
 	// 例外的な処理は、ここで記述する
 	
 	// 特定のシーンにおいて、フェード中や待機中でも処理が流れるように変更
-	if (!sceneList_.empty()) {
+	if (!sceneList_.empty())
+	{
 		if (sceneList_.back()->GetMyScene() == SceneBase::SCENE::GAME &&
 			fader_->GetFadeMode() == Fader::FADE_MODE::FADE_IN &&
-			(fader_->GetNowProc() == Fader::PROC::FADE || fader_->GetNowProc() == Fader::PROC::WAIT)) {
+			(fader_->GetNowProc() == Fader::PROC::FADE || fader_->GetNowProc() == Fader::PROC::WAIT))
+		{
 			return false;
 		}
 	}
@@ -208,13 +218,17 @@ bool SceneManager::Fade() {
 	return true;
 }
 
-void SceneManager::DoChangeScene(SceneBase::SCENE scene) {
+void SceneManager::DoChangeScene(SceneBase::SCENE scene)
+{
 	SceneBase* ret = nullptr;
 
-	if (scene != SceneBase::SCENE::PAUSE) {
-		while (!sceneList_.empty()) {
+	if (scene != SceneBase::SCENE::PAUSE)
+	{
+		while (!sceneList_.empty())
+		{
 			// 現在アクティブなシーンが目標のシーンなら、関数から抜ける
-			if (sceneList_.back()->GetMyScene() == scene) {
+			if (sceneList_.back()->GetMyScene() == scene)
+			{
 				sceneList_.back()->SetScene(scene);
 				return;
 			}
@@ -223,9 +237,9 @@ void SceneManager::DoChangeScene(SceneBase::SCENE scene) {
 			else ReleaseScene();
 		}
 
-
 		// シーンを切り替える
-		switch (scene) {
+		switch (scene)
+		{
 		case SceneBase::SCENE::TITLE:
 			ret = new TitleScene();
 			break;
@@ -248,15 +262,18 @@ void SceneManager::DoChangeScene(SceneBase::SCENE scene) {
 			break;
 		}
 	}
-	else {
+	else
+	{
 		// ポーズシーン
 		ret = new PauseScene();
 	}
 
-	if (ret != nullptr) {
+	if (ret != nullptr)
+	{
 		ret->SystemInit(scene, 0);
 		ret->GameInit();
 		sceneList_.push_back(ret);
 	}
+
 	return;
 }

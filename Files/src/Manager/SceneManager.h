@@ -8,6 +8,11 @@ class SceneBase;
 class Fader;
 
 class SceneManager {
+public:
+	static void CreateInstance() { if (instance_ == nullptr) instance_ = new SceneManager; }
+	static SceneManager& GetInstance() { return *instance_; }
+	static void DeleteInstance() { if (instance_ != nullptr) delete instance_; instance_ = nullptr; }
+
 private:
 	static SceneManager* instance_;
 
@@ -20,10 +25,6 @@ private:
 	SceneManager& operator=(SceneManager&&) = delete;
 
 public:
-	static void CreateInstance() { if (instance_ == nullptr) instance_ = new SceneManager; }
-	static SceneManager& GetInstance() { return *instance_; }
-	static void DeleteInstance() { if (instance_ != nullptr) delete instance_; instance_ = nullptr; }
-
 	bool Init();
 	void Update();
 	void Draw();

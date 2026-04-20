@@ -2,6 +2,11 @@
 
 class Application {
 public:
+	// データパス関連
+	static const std::string PATH_IMAGE;
+	static const std::string PATH_MODEL;
+	static const std::string PATH_EFFECT;
+
 	static void CreateInstance() { if (instance_ == nullptr) instance_ = new Application; }
 	static Application& GetInstance() { return *instance_; }
 	static void DeleteInstance() { if (instance_ != nullptr) delete instance_; instance_ = nullptr; }

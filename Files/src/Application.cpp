@@ -11,6 +11,10 @@
 
 Application* Application::instance_ = nullptr;
 
+const std::string Application::PATH_IMAGE = "Data/Image/";
+const std::string Application::PATH_MODEL = "Data/Model/";
+const std::string Application::PATH_EFFECT = "Data/Effect/";
+
 bool Application::Init() {
 	// ÉVÉXÉeÉÄèâä˙âª
 	if (SystemInit() == false) return false;
@@ -109,7 +113,6 @@ bool Application::ClassInit() {
 
 	// InputManager
 	InputManager::CreateInstance();
-	InputManager::GetInstance().Init();
 	{
 		auto& ins = InputManager::GetInstance();
 		using tag = InputManager::TAGS;
@@ -132,6 +135,12 @@ bool Application::ClassInit() {
 
 		ins.AddMap(1, tag::SELECT,
 			{ { btn::BUTTON_6, btn::NONE }, { KEY_INPUT_BACK, KEY_INPUT_ESCAPE } });
+
+		ins.AddMap(1, tag::ATTACK_MAIN,
+			{ { btn::BUTTON_0, btn::NONE }, { KEY_INPUT_J, 0x00 } });
+
+		ins.AddMap(1, tag::ATTACK_SUB,
+			{ { btn::BUTTON_2, btn::NONE }, { KEY_INPUT_K, 0x00 } });
 	}
 
 	// SceneManager

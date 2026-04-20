@@ -8,7 +8,7 @@
 class InputManager {
 public:
 	/// ƒVƒ“ƒOƒ‹ƒgƒ“
-	static void CreateInstance(int pad_max = PAD_NUM_MAX_DEFAULT) { if (instance_ == nullptr) instance_ = new InputManager(pad_max); }
+	static void CreateInstance(int pad_max = PAD_NUM_MAX_DEFAULT) { if (instance_ == nullptr) instance_ = new InputManager(pad_max); instance_->Init(); }
 	static InputManager& GetInstance() { return *instance_; }
 	static void DeleteInstance() { if (instance_ != nullptr) delete instance_; instance_ = nullptr; }
 
