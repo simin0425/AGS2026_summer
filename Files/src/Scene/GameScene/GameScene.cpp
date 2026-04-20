@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include "GameScene.h"
+#include "../../Manager/InputManager.h"
 
 bool GameScene::GameInit()
 {
@@ -8,15 +9,26 @@ bool GameScene::GameInit()
 
 void GameScene::Update()
 {
-    // Zキーでゲームクリアシーンへ
-    if (CheckHitKey(KEY_INPUT_Z)) {
+    InputManager& ins = InputManager::GetInstance();
+    // ゲームクリアシーン
+    if (ins.DownKey(KEY_INPUT_Z)) {
         nextScene_ = SCENE::CLEAR;
     }
 
-    // Xキーでゲームオーバーシーンへ
-    if (CheckHitKey(KEY_INPUT_X)) {
+    // ゲームオーバーシーン
+    if (ins.DownKey(KEY_INPUT_X)) {
         nextScene_ = SCENE::OVER;
     }
+
+    // ショップシーン
+    if (ins.DownKey(KEY_INPUT_C)) {
+        nextScene_ = SCENE::SHOP;
+	}
+
+	// ポーズシーン
+    if (ins.DownKey(KEY_INPUT_P)) {
+        nextScene_ = SCENE::PAUSE;
+	}
 }
 
 void GameScene::Draw()

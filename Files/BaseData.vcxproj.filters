@@ -19,6 +19,8 @@
     <ClCompile Include="src\Scene\TitleScene\TitleScene.cpp" />
     <ClCompile Include="src\Scene\GameClearScene\GameClearScene.cpp" />
     <ClCompile Include="src\Scene\GameOverScene\GameOverScene.cpp" />
+    <ClCompile Include="src\Scene\ShopScene\ShopScene.cpp" />
+    <ClCompile Include="src\Scene\PauseScene\PauseScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Common\Fader.h" />
@@ -38,5 +40,7 @@
     <ClInclude Include="src\Scene\TitleScene\TitleScene.h" />
     <ClInclude Include="src\Scene\GameClearScene\GameClearScene.h" />
     <ClInclude Include="src\Scene\GameOverScene\GameOverScene.h" />
+    <ClInclude Include="src\Scene\ShopScene\ShopScene.h" />
+    <ClInclude Include="src\Scene\PauseScene\PauseScene.h" />
   </ItemGroup>
 </Project>

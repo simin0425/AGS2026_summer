@@ -6,8 +6,9 @@
 #include "../Scene/GameScene/GameScene.h"
 #include "../Scene/GameClearScene/GameClearScene.h"
 #include "../Scene/GameOverScene/GameOverScene.h"
+#include "../Scene/ShopScene/ShopScene.h"
 //#include "../Scene/ResultScene/ResultScene.h"
-//#include "../Scene/Pause/Pause.h"
+#include "../Scene/PauseScene/PauseScene.h"
 #include "FPSManager.h"
 #include "SceneManager.h"
 
@@ -55,7 +56,7 @@ void SceneManager::Update() {
 
 void SceneManager::Draw() {
 	// 画面全体を灰色で塗りつぶす
-	DrawBox(0, 0, 1280, 960, 0x808080, TRUE);
+	DrawBox(0, 0, 1280, 960, 0xc0c0c0, TRUE);
 
 	// 非アクティブのシーンも描画する
 	for (auto scene : sceneList_) {
@@ -242,14 +243,14 @@ void SceneManager::DoChangeScene(SceneBase::SCENE scene) {
 		case SceneBase::SCENE::OVER:
 			ret = new GameOverScene();
 			break;
-		//case SceneBase::SCENE::RESULT:
-		//	ret = new ResultScene();
-		//	break;
+		case SceneBase::SCENE::SHOP:
+			ret = new ShopScene();
+			break;
 		}
 	}
 	else {
 		// ポーズシーン
-		//ret = new Pause();
+		ret = new PauseScene();
 	}
 
 	if (ret != nullptr) {

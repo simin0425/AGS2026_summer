@@ -8,7 +8,7 @@ bool TitleScene::GameInit()
 
 void TitleScene::Update()
 {
-    // Spaceキーでゲームシーンへ
+    // ゲームシーン
     if (CheckHitKey(KEY_INPUT_SPACE)) {
         nextScene_ = SCENE::GAME;
     }

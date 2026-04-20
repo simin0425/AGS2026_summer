@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include "GameClearScene.h"
+#include "../../Manager/InputManager.h"
 
 bool GameClearScene::GameInit()
 {
@@ -8,8 +9,9 @@ bool GameClearScene::GameInit()
 
 void GameClearScene::Update()
 {
-    // Spaceキーでタイトルシーンへ
-    if (CheckHitKey(KEY_INPUT_SPACE)) {
+    InputManager& ins = InputManager::GetInstance();
+    // タイトルシーン
+    if (ins.DownKey(KEY_INPUT_SPACE)) {
         nextScene_ = SCENE::TITLE;
     }
 }

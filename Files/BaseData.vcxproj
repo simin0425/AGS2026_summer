@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Scene\PauseScene\PauseScene.cpp" />
+    <ClCompile Include="src\Scene\ShopScene\ShopScene.cpp" />
     <ClCompile Include="src\Scene\GameOverScene\GameOverScene.cpp" />
     <ClCompile Include="src\Scene\GameClearScene\GameClearScene.cpp" />
     <ClCompile Include="src\Scene\GameScene\GameScene.cpp" />
@@ -39,6 +41,8 @@
     <ClCompile Include="src\Scene\TitleScene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Scene\PauseScene\PauseScene.h" />
+    <ClInclude Include="src\Scene\ShopScene\ShopScene.h" />
     <ClInclude Include="src\Scene\GameOverScene\GameOverScene.h" />
     <ClInclude Include="src\Scene\GameClearScene\GameClearScene.h" />
     <ClInclude Include="src\Scene\GameScene\GameScene.h" />

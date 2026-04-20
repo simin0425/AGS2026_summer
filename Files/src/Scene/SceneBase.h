@@ -10,6 +10,7 @@ public:
 		GAME,
 		CLEAR,
 		OVER,
+		SHOP,
 
 	};
 
