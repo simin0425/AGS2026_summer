@@ -21,6 +21,9 @@
   <ItemGroup>
     <ClCompile Include="src\Manager\Resource.cpp" />
     <ClCompile Include="src\Manager\ResourceManager.cpp" />
+    <ClCompile Include="src\Object\ActorBase2D.cpp" />
+    <ClCompile Include="src\Object\Common\Object2D.cpp" />
+    <ClCompile Include="src\Object\Player.cpp" />
     <ClCompile Include="src\Scene\PauseScene\PauseScene.cpp" />
     <ClCompile Include="src\Scene\ShopScene\ShopScene.cpp" />
     <ClCompile Include="src\Scene\GameOverScene\GameOverScene.cpp" />
@@ -45,6 +48,9 @@
   <ItemGroup>
     <ClInclude Include="src\Manager\Resource.h" />
     <ClInclude Include="src\Manager\ResourceManager.h" />
+    <ClInclude Include="src\Object\ActorBase2D.h" />
+    <ClInclude Include="src\Object\Common\Object2D.h" />
+    <ClInclude Include="src\Object\Player.h" />
     <ClInclude Include="src\Scene\PauseScene\PauseScene.h" />
     <ClInclude Include="src\Scene\ShopScene\ShopScene.h" />
     <ClInclude Include="src\Scene\GameOverScene\GameOverScene.h" />

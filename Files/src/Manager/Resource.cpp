@@ -51,11 +51,11 @@ void Resource::Load(void)
 {
 	switch (type_)
 	{
-	case Resource::TYPE::IMG:
+	case Resource::TYPE::IMAGE:
 		// âÊëú
 		handleId_ = LoadGraph(path_.c_str());
 		break;
-	case Resource::TYPE::IMGS:
+	case Resource::TYPE::IMAGES:
 		// ï°êîâÊëú
 		handleIds_ = new int[numX_ * numY_];
 		LoadDivGraph(
@@ -80,10 +80,10 @@ void Resource::Release(void)
 
 	switch (type_)
 	{
-	case Resource::TYPE::IMG:
+	case Resource::TYPE::IMAGE:
 		DeleteGraph(handleId_);
 		break;
-	case Resource::TYPE::IMGS:
+	case Resource::TYPE::IMAGES:
 		{
 			int num = numX_ * numY_;
 			for (int i = 0; i < num; i++)

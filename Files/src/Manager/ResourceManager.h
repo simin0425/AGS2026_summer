@@ -12,6 +12,8 @@ public:
 	enum class SRC
 	{
 		TITLE_LOGO,
+
+		PLAYER,
 	};
 
 	// 明示的にインステンスを生成する

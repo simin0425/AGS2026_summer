@@ -11,8 +11,8 @@ public:
 	enum class TYPE
 	{
 		NONE,
-		IMG,
-		IMGS,
+		IMAGE,
+		IMAGES,
 		MODEL,
 		EFFEKSEER
 	};
