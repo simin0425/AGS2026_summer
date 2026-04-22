@@ -24,7 +24,7 @@ InputManager::InputManager(int pad_max)
 bool InputManager::Init()
 {
 	// DxLib上ではゲームパッドは1から始まる
-	for (int i = 1; i <= gamepads_.size(); ++i)
+	for (int i = 1; i < gamepads_.size(); ++i)
 	{
 		gamepads_[i] = new Gamepad(i);
 	}
@@ -38,7 +38,7 @@ void InputManager::Update()
 
 	// ゲームパッドの状態を更新
 	// ※gamepads_[0]はnullptrなので接触しないように注意
-	for (int i = 1; i <= gamepads_.size(); ++i)
+	for (int i = 1; i < gamepads_.size(); ++i)
 	{
 		gamepads_[i]->Update();
 	}

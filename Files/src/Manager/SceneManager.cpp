@@ -153,13 +153,22 @@ void SceneManager::ChangeScene(SceneBase::SCENE scene)
 {
 	waitSceneId_ = scene;
 
+	// 現在のシーンがない（つまり起動直後である）場合、即座にフェードインモードにする
 	if (sceneList_.empty())
 	{
 		fader_->ForceSetMode(Fader::FADE_MODE::FADE_OUT);
-		fader_->SetFadeMode(Fader::FADE_MODE::FADE_IN, 60U);
+		DoChangeScene(waitSceneId_);
+		fader_->SetFadeMode(Fader::FADE_MODE::FADE_IN, 60U, 60U);
+		return;
 	}
 
-	fader_->SetFadeMode(Fader::FADE_MODE::FADE_OUT, 60U, 0U, 60U);
+	if (waitSceneId_ == SceneBase::SCENE::PAUSE || sceneList_.back()->GetMyScene() == SceneBase::SCENE::PAUSE)
+	{
+		DoChangeScene(waitSceneId_);
+		return;
+	}
+
+	fader_->SetFadeMode(Fader::FADE_MODE::FADE_OUT, 60U);
 }
 
 bool SceneManager::Fade()
@@ -179,7 +188,7 @@ bool SceneManager::Fade()
 			if (waitSceneId_ != SceneBase::SCENE::NONE)
 			{
 				// フェードモードをフェードインに
-				fader_->SetFadeMode(Fader::FADE_MODE::FADE_IN, 60U, 120U);
+				fader_->SetFadeMode(Fader::FADE_MODE::FADE_IN, 60U);
 			}
 			else
 			{
@@ -202,17 +211,8 @@ bool SceneManager::Fade()
 		return false;
 	}
 
-	// 例外的な処理は、ここで記述する
-	
-	// 特定のシーンにおいて、フェード中や待機中でも処理が流れるように変更
-	if (!sceneList_.empty())
+	// 例外的な処理は、このスコープ内でまとめて記述してくれると嬉しいです
 	{
-		if (sceneList_.back()->GetMyScene() == SceneBase::SCENE::GAME &&
-			fader_->GetFadeMode() == Fader::FADE_MODE::FADE_IN &&
-			(fader_->GetNowProc() == Fader::PROC::FADE || fader_->GetNowProc() == Fader::PROC::WAIT))
-		{
-			return false;
-		}
 	}
 
 	return true;
