@@ -18,7 +18,7 @@ void TitleScene::Update()
 {
     InputManager& ins = InputManager::GetInstance();
     //// ゲームシーン
-    //if (ins.DownKey(KEY_INPUT_SPACE)) {
+    //if (ins.CheckDownKey(KEY_INPUT_SPACE)) {
     //    nextScene_ = SCENE::GAME;
     //}
 
@@ -71,7 +71,7 @@ void TitleScene::SelectTitleMenu()
 {
     InputManager& ins = InputManager::GetInstance();
     // 選択肢移動
-    if (ins.DownKey(KEY_INPUT_UP) || ins.DownKey(KEY_INPUT_W))
+    if (ins.CheckDownKey(KEY_INPUT_UP) || ins.CheckDownKey(KEY_INPUT_W))
     {
         // 上移動
         if (titleMenu_ != TITLE_MENU::START)
@@ -83,7 +83,7 @@ void TitleScene::SelectTitleMenu()
             titleMenu_ = TITLE_MENU::EXIT;
         }
     }
-    else if (ins.DownKey(KEY_INPUT_DOWN) || ins.DownKey(KEY_INPUT_S))
+    else if (ins.CheckDownKey(KEY_INPUT_DOWN) || ins.CheckDownKey(KEY_INPUT_S))
     {
         // 下移動
         if (titleMenu_ != TITLE_MENU::EXIT)
@@ -97,7 +97,7 @@ void TitleScene::SelectTitleMenu()
     }
 
     // 選択肢決定
-    if (ins.DownKey(KEY_INPUT_RETURN) || ins.DownKey(KEY_INPUT_SPACE))
+    if (ins.CheckDownKey(KEY_INPUT_RETURN) || ins.CheckDownKey(KEY_INPUT_SPACE))
     {
         switch (titleMenu_)
         {
@@ -123,7 +123,7 @@ void TitleScene::SelectStageMenu()
 {
     InputManager& ins = InputManager::GetInstance();
     // 選択肢移動
-    if (ins.DownKey(KEY_INPUT_UP) || ins.DownKey(KEY_INPUT_W))
+    if (ins.CheckDownKey(KEY_INPUT_UP) || ins.CheckDownKey(KEY_INPUT_W))
     {
         // 上移動
         if (stageMenu_ != STAGE_MENU::STAGE_1)
@@ -135,7 +135,7 @@ void TitleScene::SelectStageMenu()
             stageMenu_ = STAGE_MENU::STAGE_3;
         }
     }
-    else if (ins.DownKey(KEY_INPUT_DOWN) || ins.DownKey(KEY_INPUT_S))
+    else if (ins.CheckDownKey(KEY_INPUT_DOWN) || ins.CheckDownKey(KEY_INPUT_S))
     {
         // 下移動
         if (stageMenu_ != STAGE_MENU::STAGE_3)
@@ -149,7 +149,7 @@ void TitleScene::SelectStageMenu()
     }
 
     // 選択肢決定
-    if (ins.DownKey(KEY_INPUT_RETURN) || ins.DownKey(KEY_INPUT_SPACE))
+    if (ins.CheckDownKey(KEY_INPUT_RETURN) || ins.CheckDownKey(KEY_INPUT_SPACE))
     {
         int stageNum = static_cast<int>(stageMenu_);
         SceneManager::GetInstance().SetNextStartStage(stageNum);
@@ -157,7 +157,7 @@ void TitleScene::SelectStageMenu()
     }
 
 	// タイトルメニューへ
-    if (ins.DownKey(KEY_INPUT_ESCAPE) || ins.DownKey(KEY_INPUT_BACK))
+    if (ins.CheckDownKey(KEY_INPUT_ESCAPE) || ins.CheckDownKey(KEY_INPUT_BACK))
     {
         page_ = PAGE::TITLE;
 		titleMenu_ = TITLE_MENU::START;
@@ -168,7 +168,7 @@ void TitleScene::SelectExitMenu()
 {
     InputManager& ins = InputManager::GetInstance();
 	// 選択肢移動
-    if (ins.DownKey(KEY_INPUT_UP) || ins.DownKey(KEY_INPUT_W))
+    if (ins.CheckDownKey(KEY_INPUT_UP) || ins.CheckDownKey(KEY_INPUT_W))
     {
 		// 上移動
         if (exitMenu_ != EXIT_MENU::YES)
@@ -180,7 +180,7 @@ void TitleScene::SelectExitMenu()
             exitMenu_ = EXIT_MENU::NO;
         }
     }
-    else if (ins.DownKey(KEY_INPUT_DOWN) || ins.DownKey(KEY_INPUT_S))
+    else if (ins.CheckDownKey(KEY_INPUT_DOWN) || ins.CheckDownKey(KEY_INPUT_S))
     {
         // 下移動
         if (exitMenu_ != EXIT_MENU::NO)
@@ -194,7 +194,7 @@ void TitleScene::SelectExitMenu()
     }
 
     // 選択肢決定
-    if ((ins.DownKey(KEY_INPUT_RETURN) || ins.DownKey(KEY_INPUT_SPACE)))
+    if ((ins.CheckDownKey(KEY_INPUT_RETURN) || ins.CheckDownKey(KEY_INPUT_SPACE)))
     {
         switch (exitMenu_)
         {
@@ -210,7 +210,7 @@ void TitleScene::SelectExitMenu()
     }
 
     // タイトルメニューへ
-    if (ins.DownKey(KEY_INPUT_ESCAPE) || ins.DownKey(KEY_INPUT_BACK))
+    if (ins.CheckDownKey(KEY_INPUT_ESCAPE) || ins.CheckDownKey(KEY_INPUT_BACK))
     {
         page_ = PAGE::TITLE;
         titleMenu_ = TITLE_MENU::START;
