@@ -69,15 +69,15 @@ public:
 	void ReplaceKeyMap(int pad_num, TAGS tag, KEY_MAP_ARRAY replace);
 	void ReplaceKeyMap(int pad_num, TAGS tag, int replace, size_t index);
 
-	bool NowMap(int pad_num, TAGS tag) const;
-	bool PrevMap(int pad_num, TAGS tag) const;
-	bool DownMap(int pad_num, TAGS tag) const;
-	bool UpMap(int pad_num, TAGS tag) const;
+	bool CheckNowMap(int pad_num, TAGS tag) const;
+	bool CheckPrevMap(int pad_num, TAGS tag) const;
+	bool CheckDownMap(int pad_num, TAGS tag) const;
+	bool CheckUpMap(int pad_num, TAGS tag) const;
 
-	int NowKey(int DxLib_KEYcode) const;
-	int PrevKey(int DxLib_KEYcode) const;
-	bool DownKey(int DxLib_KEYcode) const;
-	bool UpKey(int DxLib_KEYcode) const;
+	int CheckNowKey(int DxLib_KEYcode) const;
+	int CheckPrevKey(int DxLib_KEYcode) const;
+	bool CheckDownKey(int DxLib_KEYcode) const;
+	bool CheckUpKey(int DxLib_KEYcode) const;
 
 private:
 	static constexpr double XINPUT_STICK_MULT = 1000.0 / (short)0x7fff;

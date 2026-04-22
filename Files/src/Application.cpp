@@ -68,7 +68,7 @@ bool Application::SystemInit() {
 	SetWindowText("知性の立方体");
 
 	// 画面設定
-	SetGraphMode(1280, 960, 32);
+	SetGraphMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32);
 
 	// ウィンドウモード
 	ChangeWindowMode(true);
@@ -118,29 +118,42 @@ bool Application::ClassInit() {
 		using tag = InputManager::TAGS;
 		using btn = Gamepad::RAW_BUTTON;
 
+		InputManager::PAD_MAP_ARRAY nullBtns = { btn::NONE, btn::NONE };
+		InputManager::KEY_MAP_ARRAY nullKeys = { 0x00, 0x00 };
+
 		ins.AddMap(1, tag::MOVE_UP,
 			{ { btn::DPAD_U, btn::LSTICK_U }, { KEY_INPUT_W, KEY_INPUT_UP } });
-
 		ins.AddMap(1, tag::MOVE_DOWN,
 			{ { btn::DPAD_D, btn::LSTICK_D }, { KEY_INPUT_S, KEY_INPUT_DOWN } });
-
 		ins.AddMap(1, tag::MOVE_LEFT,
 			{ { btn::DPAD_L, btn::LSTICK_L }, { KEY_INPUT_A, KEY_INPUT_LEFT } });
-
 		ins.AddMap(1, tag::MOVE_RIGHT,
 			{ { btn::DPAD_R, btn::LSTICK_R }, { KEY_INPUT_D, KEY_INPUT_RIGHT } });
-
 		ins.AddMap(1, tag::START,
 			{ { btn::BUTTON_7, btn::NONE }, { KEY_INPUT_RETURN, 0x00 } });
-
 		ins.AddMap(1, tag::SELECT,
 			{ { btn::BUTTON_6, btn::NONE }, { KEY_INPUT_BACK, KEY_INPUT_ESCAPE } });
-
 		ins.AddMap(1, tag::ATTACK_MAIN,
 			{ { btn::BUTTON_0, btn::NONE }, { KEY_INPUT_J, 0x00 } });
-
 		ins.AddMap(1, tag::ATTACK_SUB,
 			{ { btn::BUTTON_2, btn::NONE }, { KEY_INPUT_K, 0x00 } });
+
+		ins.AddMap(2, tag::MOVE_UP,
+			{ { btn::DPAD_U, btn::LSTICK_U }, nullKeys });
+		ins.AddMap(2, tag::MOVE_DOWN,
+			{ { btn::DPAD_D, btn::LSTICK_D }, nullKeys });
+		ins.AddMap(2, tag::MOVE_LEFT,
+			{ { btn::DPAD_L, btn::LSTICK_L }, nullKeys });
+		ins.AddMap(2, tag::MOVE_RIGHT,
+			{ { btn::DPAD_R, btn::LSTICK_R }, nullKeys });
+		ins.AddMap(2, tag::START,
+			{ { btn::BUTTON_7, btn::NONE }, nullKeys });
+		ins.AddMap(2, tag::SELECT,
+			{ { btn::BUTTON_6, btn::NONE }, nullKeys });
+		ins.AddMap(2, tag::ATTACK_MAIN,
+			{ { btn::BUTTON_0, btn::NONE }, nullKeys });
+		ins.AddMap(2, tag::ATTACK_SUB,
+			{ { btn::BUTTON_2, btn::NONE }, nullKeys });
 	}
 
 	// SceneManager
@@ -154,7 +167,7 @@ void Application::Update() {
 	InputManager::GetInstance().Update();
 
 	FPSManager::GetInstance().Update(
-		InputManager::GetInstance().DownKey(KEY_INPUT_INSERT));
+		InputManager::GetInstance().CheckDownKey(KEY_INPUT_INSERT));
 
 	SceneManager::GetInstance().Update();
 }
@@ -172,7 +185,7 @@ void Application::Draw() {
 	SceneManager::GetInstance().Draw();
 
 #ifdef _DEBUG
-	Vector2 center = { 1280 / 2.0f, 960 / 2.0f };
+	Vector2 center = { SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f };
 	DrawCircleAA(center.x, center.y, 3.0f, 12, 0x00FFFFU, true);
 #endif
 

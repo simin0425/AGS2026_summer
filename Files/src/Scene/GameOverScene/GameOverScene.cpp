@@ -11,7 +11,7 @@ void GameOverScene::Update()
 {
     InputManager& ins = InputManager::GetInstance();
     // タイトルシーン
-    if (ins.DownKey(KEY_INPUT_SPACE)) {
+    if (ins.CheckDownKey(KEY_INPUT_SPACE)) {
         nextScene_ = SCENE::TITLE;
     }
 }

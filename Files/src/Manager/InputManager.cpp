@@ -114,7 +114,7 @@ void InputManager::ReplaceKeyMap(int pad_num, TAGS tag, int replace, size_t inde
 		(*it).second.keyMap[index] = replace;
 }
 
-bool InputManager::NowMap(int pad_num, TAGS tag) const
+bool InputManager::CheckNowMap(int pad_num, TAGS tag) const
 {
 	if (pad_num < 0 || pad_num >= PAD_NUM_MAX) return false;
 
@@ -123,15 +123,15 @@ bool InputManager::NowMap(int pad_num, TAGS tag) const
 	if (it != inputMap_[pad_num].end()) {
 		auto p1 = gamepads_[pad_num]->NowButton((*it).second.padMap[0]);
 		auto p2 = gamepads_[pad_num]->NowButton((*it).second.padMap[1]);
-		auto k1 = NowKey((*it).second.keyMap[0]);
-		auto k2 = NowKey((*it).second.keyMap[1]);
+		auto k1 = CheckNowKey((*it).second.keyMap[0]);
+		auto k2 = CheckNowKey((*it).second.keyMap[1]);
 		return p1 || p2 || k1 || k2;
 	}
 
 	return false;
 }
 
-bool InputManager::PrevMap(int pad_num, TAGS tag) const
+bool InputManager::CheckPrevMap(int pad_num, TAGS tag) const
 {
 	if (pad_num < 0 || pad_num >= PAD_NUM_MAX) return false;
 
@@ -140,15 +140,15 @@ bool InputManager::PrevMap(int pad_num, TAGS tag) const
 	if (it != inputMap_[pad_num].end()) {
 		auto p1 = gamepads_[pad_num]->PrevButton((*it).second.padMap[0]);
 		auto p2 = gamepads_[pad_num]->PrevButton((*it).second.padMap[1]);
-		auto k1 = PrevKey((*it).second.keyMap[0]);
-		auto k2 = PrevKey((*it).second.keyMap[1]);
+		auto k1 = CheckPrevKey((*it).second.keyMap[0]);
+		auto k2 = CheckPrevKey((*it).second.keyMap[1]);
 		return p1 || p2 || k1 || k2;
 	}
 
 	return false;
 }
 
-bool InputManager::DownMap(int pad_num, TAGS tag) const
+bool InputManager::CheckDownMap(int pad_num, TAGS tag) const
 {
 	if (pad_num < 0 || pad_num >= PAD_NUM_MAX) return false;
 
@@ -158,13 +158,13 @@ bool InputManager::DownMap(int pad_num, TAGS tag) const
 	{
 		auto np1 = gamepads_[pad_num]->NowButton((*it).second.padMap[0]);
 		auto np2 = gamepads_[pad_num]->NowButton((*it).second.padMap[1]);
-		auto nk1 = NowKey((*it).second.keyMap[0]);
-		auto nk2 = NowKey((*it).second.keyMap[1]);
+		auto nk1 = CheckNowKey((*it).second.keyMap[0]);
+		auto nk2 = CheckNowKey((*it).second.keyMap[1]);
 
 		auto pp1 = gamepads_[pad_num]->PrevButton((*it).second.padMap[0]);
 		auto pp2 = gamepads_[pad_num]->PrevButton((*it).second.padMap[1]);
-		auto pk1 = PrevKey((*it).second.keyMap[0]);
-		auto pk2 = PrevKey((*it).second.keyMap[1]);
+		auto pk1 = CheckPrevKey((*it).second.keyMap[0]);
+		auto pk2 = CheckPrevKey((*it).second.keyMap[1]);
 
 		return !(pp1 || pp2 || pk1 || pk2) && (np1 || np2 || nk1 || nk2);
 	}
@@ -172,7 +172,7 @@ bool InputManager::DownMap(int pad_num, TAGS tag) const
 	return false;
 }
 
-bool InputManager::UpMap(int pad_num, TAGS tag) const
+bool InputManager::CheckUpMap(int pad_num, TAGS tag) const
 {
 	if (pad_num < 0 || pad_num >= PAD_NUM_MAX) return false;
 
@@ -182,13 +182,13 @@ bool InputManager::UpMap(int pad_num, TAGS tag) const
 	{
 		auto np1 = gamepads_[pad_num]->NowButton((*it).second.padMap[0]);
 		auto np2 = gamepads_[pad_num]->NowButton((*it).second.padMap[1]);
-		auto nk1 = NowKey((*it).second.keyMap[0]);
-		auto nk2 = NowKey((*it).second.keyMap[1]);
+		auto nk1 = CheckNowKey((*it).second.keyMap[0]);
+		auto nk2 = CheckNowKey((*it).second.keyMap[1]);
 
 		auto pp1 = gamepads_[pad_num]->PrevButton((*it).second.padMap[0]);
 		auto pp2 = gamepads_[pad_num]->PrevButton((*it).second.padMap[1]);
-		auto pk1 = PrevKey((*it).second.keyMap[0]);
-		auto pk2 = PrevKey((*it).second.keyMap[1]);
+		auto pk1 = CheckPrevKey((*it).second.keyMap[0]);
+		auto pk2 = CheckPrevKey((*it).second.keyMap[1]);
 
 		return !(np1 || np2 || nk1 || nk2) && (pp1 || pp2 || pk1 || pk2);
 	}
@@ -196,24 +196,24 @@ bool InputManager::UpMap(int pad_num, TAGS tag) const
 	return false;
 }
 
-int InputManager::NowKey(int d) const
+int InputManager::CheckNowKey(int d) const
 {
 	return nowKey_[d];
 }
 
-int InputManager::PrevKey(int d) const
+int InputManager::CheckPrevKey(int d) const
 {
 	return prevKey_[d];
 }
 
-bool InputManager::DownKey(int d) const
+bool InputManager::CheckDownKey(int d) const
 {
-	return NowKey(d) && !PrevKey(d);
+	return CheckNowKey(d) && !CheckPrevKey(d);
 }
 
-bool InputManager::UpKey(int d) const
+bool InputManager::CheckUpKey(int d) const
 {
-	return !NowKey(d) && PrevKey(d);
+	return !CheckNowKey(d) && CheckPrevKey(d);
 }
 
 void InputManager::GetKeyInput()

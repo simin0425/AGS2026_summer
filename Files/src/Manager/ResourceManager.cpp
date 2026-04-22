@@ -32,7 +32,7 @@ void ResourceManager::Init(void)
 	resourcesMap_.emplace(SRC::TITLE_LOGO, res);
 
 	// プレイヤー自機
-	res = new RES(RES_T::IMAGE, Application::PATH_IMAGE + "PushSpace.png");
+	res = new RES(RES_T::IMAGE, Application::PATH_IMAGE + "Player.png");
 	resourcesMap_.emplace(SRC::PLAYER, res);
 }
 

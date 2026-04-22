@@ -22,9 +22,13 @@ public:
 	void Update();
 	void Draw();
 
+	// 現在のフェードモードを取得する
 	FADE_MODE GetFadeMode() const;
-	void ForceSetMode(FADE_MODE);
+	// 現在のフェード処理の状態を取得する
 	PROC GetNowProc() const;
+	// 強制的にフェードモードを設定する
+	void ForceSetMode(FADE_MODE);
+	// フェード処理が完了しているか
 	bool IsFadeEnd() const;
 
 private:

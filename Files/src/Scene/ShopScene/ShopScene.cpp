@@ -11,7 +11,7 @@ void ShopScene::Update()
 {
     InputManager& ins = InputManager::GetInstance();
     // ÉQÅ[ÉÄÉVÅ[Éì
-    if (ins.DownKey(KEY_INPUT_SPACE)) {
+    if (ins.CheckDownKey(KEY_INPUT_SPACE)) {
         nextScene_ = SCENE::GAME;
     }
 }
