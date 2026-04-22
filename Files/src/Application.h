@@ -1,7 +1,11 @@
 #pragma once
+#include <string>
 
 class Application {
 public:
+	static const int SCREEN_WIDTH = 800;
+	static const int SCREEN_HEIGHT = 600;
+
 	// データパス関連
 	static const std::string PATH_IMAGE;
 	static const std::string PATH_MODEL;

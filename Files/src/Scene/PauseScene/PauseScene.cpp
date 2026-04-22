@@ -11,7 +11,7 @@ void PauseScene::Update()
 {
     InputManager& ins = InputManager::GetInstance();
     // ÉQÅ[ÉÄÉVÅ[Éì
-    if (ins.DownKey(KEY_INPUT_P)) {
+    if (ins.CheckDownKey(KEY_INPUT_P)) {
         nextScene_ = SCENE::GAME;
     }
 }

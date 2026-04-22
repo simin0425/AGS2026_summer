@@ -11,22 +11,22 @@ void GameScene::Update()
 {
     InputManager& ins = InputManager::GetInstance();
     // ゲームクリアシーン
-    if (ins.DownKey(KEY_INPUT_Z)) {
+    if (ins.CheckDownKey(KEY_INPUT_Z)) {
         nextScene_ = SCENE::CLEAR;
     }
 
     // ゲームオーバーシーン
-    if (ins.DownKey(KEY_INPUT_X)) {
+    if (ins.CheckDownKey(KEY_INPUT_X)) {
         nextScene_ = SCENE::OVER;
     }
 
     // ショップシーン
-    if (ins.DownKey(KEY_INPUT_C)) {
+    if (ins.CheckDownKey(KEY_INPUT_C)) {
         nextScene_ = SCENE::SHOP;
 	}
 
 	// ポーズシーン
-    if (ins.DownKey(KEY_INPUT_P)) {
+    if (ins.CheckDownKey(KEY_INPUT_P)) {
         nextScene_ = SCENE::PAUSE;
 	}
 }
