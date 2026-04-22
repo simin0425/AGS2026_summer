@@ -6,19 +6,27 @@ InputManager* InputManager::instance_ = nullptr;
 
 InputManager::InputManager(int pad_max)
 	:
-	PAD_NUM_MAX(pad_max)
+	PAD_NUM_MAX(pad_max <= DX_INPUT_PAD16 ? pad_max + 1 : DX_INPUT_PAD16 + 1)
 {
+	// inputMap_[0]はキーボード操作専用として扱う。
+	// デバッグとかFPS表示に使えるかも
 	inputMap_.resize(PAD_NUM_MAX);
+
+	// gamepads_[0]は未使用とする（inputMap_と数を合わせるため）。
+	// ゲーム側が想定している最大プレイ人数分の領域を確保しておく
 	gamepads_.resize(PAD_NUM_MAX);
+
+	// キー入力の状態を初期化
 	nowKey_.fill(0);
 	prevKey_.fill(0);
 }
 
 bool InputManager::Init()
 {
-	for (int i = 0; i < gamepads_.size(); ++i)
+	// DxLib上ではゲームパッドは1から始まる
+	for (int i = 1; i < gamepads_.size(); ++i)
 	{
-		gamepads_[i] = new Gamepad(i + 1);
+		gamepads_[i] = new Gamepad(i);
 	}
 
 	return true;
@@ -28,7 +36,9 @@ void InputManager::Update()
 {
 	GetKeyInput();
 
-	for (int i = 0; i < gamepads_.size(); ++i)
+	// ゲームパッドの状態を更新
+	// ※gamepads_[0]はnullptrなので接触しないように注意
+	for (int i = 1; i < gamepads_.size(); ++i)
 	{
 		gamepads_[i]->Update();
 	}
@@ -120,9 +130,14 @@ bool InputManager::CheckNowMap(int pad_num, TAGS tag) const
 
 	auto it = inputMap_[pad_num].find(tag);
 
-	if (it != inputMap_[pad_num].end()) {
-		auto p1 = gamepads_[pad_num]->NowButton((*it).second.padMap[0]);
-		auto p2 = gamepads_[pad_num]->NowButton((*it).second.padMap[1]);
+	if (it != inputMap_[pad_num].end())
+	{
+		int p1 = 0, p2 = 0;
+		if (pad_num > 0)
+		{
+			p1 = gamepads_[pad_num]->NowButton((*it).second.padMap[0]);
+			p2 = gamepads_[pad_num]->NowButton((*it).second.padMap[1]);
+		}
 		auto k1 = CheckNowKey((*it).second.keyMap[0]);
 		auto k2 = CheckNowKey((*it).second.keyMap[1]);
 		return p1 || p2 || k1 || k2;
@@ -137,9 +152,14 @@ bool InputManager::CheckPrevMap(int pad_num, TAGS tag) const
 
 	auto it = inputMap_[pad_num].find(tag);
 
-	if (it != inputMap_[pad_num].end()) {
-		auto p1 = gamepads_[pad_num]->PrevButton((*it).second.padMap[0]);
-		auto p2 = gamepads_[pad_num]->PrevButton((*it).second.padMap[1]);
+	if (it != inputMap_[pad_num].end())
+	{
+		int p1 = 0, p2 = 0;
+		if (pad_num > 0)
+		{
+			p1 = gamepads_[pad_num]->PrevButton((*it).second.padMap[0]);
+			p2 = gamepads_[pad_num]->PrevButton((*it).second.padMap[1]);
+		}
 		auto k1 = CheckPrevKey((*it).second.keyMap[0]);
 		auto k2 = CheckPrevKey((*it).second.keyMap[1]);
 		return p1 || p2 || k1 || k2;
@@ -156,17 +176,7 @@ bool InputManager::CheckDownMap(int pad_num, TAGS tag) const
 
 	if (it != inputMap_[pad_num].end())
 	{
-		auto np1 = gamepads_[pad_num]->NowButton((*it).second.padMap[0]);
-		auto np2 = gamepads_[pad_num]->NowButton((*it).second.padMap[1]);
-		auto nk1 = CheckNowKey((*it).second.keyMap[0]);
-		auto nk2 = CheckNowKey((*it).second.keyMap[1]);
-
-		auto pp1 = gamepads_[pad_num]->PrevButton((*it).second.padMap[0]);
-		auto pp2 = gamepads_[pad_num]->PrevButton((*it).second.padMap[1]);
-		auto pk1 = CheckPrevKey((*it).second.keyMap[0]);
-		auto pk2 = CheckPrevKey((*it).second.keyMap[1]);
-
-		return !(pp1 || pp2 || pk1 || pk2) && (np1 || np2 || nk1 || nk2);
+		return !CheckPrevMap(pad_num, tag) && CheckNowMap(pad_num, tag);
 	}
 
 	return false;
@@ -180,17 +190,7 @@ bool InputManager::CheckUpMap(int pad_num, TAGS tag) const
 
 	if (it != inputMap_[pad_num].end())
 	{
-		auto np1 = gamepads_[pad_num]->NowButton((*it).second.padMap[0]);
-		auto np2 = gamepads_[pad_num]->NowButton((*it).second.padMap[1]);
-		auto nk1 = CheckNowKey((*it).second.keyMap[0]);
-		auto nk2 = CheckNowKey((*it).second.keyMap[1]);
-
-		auto pp1 = gamepads_[pad_num]->PrevButton((*it).second.padMap[0]);
-		auto pp2 = gamepads_[pad_num]->PrevButton((*it).second.padMap[1]);
-		auto pk1 = CheckPrevKey((*it).second.keyMap[0]);
-		auto pk2 = CheckPrevKey((*it).second.keyMap[1]);
-
-		return !(np1 || np2 || nk1 || nk2) && (pp1 || pp2 || pk1 || pk2);
+		return CheckPrevMap(pad_num, tag) && !CheckNowMap(pad_num, tag);
 	}
 
 	return false;

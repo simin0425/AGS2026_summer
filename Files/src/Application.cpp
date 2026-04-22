@@ -6,6 +6,7 @@
 #include "Manager/FontManager.h"
 #include "Manager/FPSManager.h"
 #include "Manager/InputManager.h"
+#include "Manager/ResourceManager.h"
 #include "Manager/SceneManager.h"
 #include "Application.h"
 
@@ -49,6 +50,9 @@ bool Application::Release() {
 
 	InputManager::GetInstance().Release();
 	InputManager::DeleteInstance();
+
+	ResourceManager::GetInstance().Release();
+	ResourceManager::DeleteInstance();
 
 	SceneManager::GetInstance().Release();
 	SceneManager::DeleteInstance();
@@ -121,40 +125,68 @@ bool Application::ClassInit() {
 		InputManager::PAD_MAP_ARRAY nullBtns = { btn::NONE, btn::NONE };
 		InputManager::KEY_MAP_ARRAY nullKeys = { 0x00, 0x00 };
 
-		ins.AddMap(1, tag::MOVE_UP,
-			{ { btn::DPAD_U, btn::LSTICK_U }, { KEY_INPUT_W, KEY_INPUT_UP } });
-		ins.AddMap(1, tag::MOVE_DOWN,
-			{ { btn::DPAD_D, btn::LSTICK_D }, { KEY_INPUT_S, KEY_INPUT_DOWN } });
-		ins.AddMap(1, tag::MOVE_LEFT,
-			{ { btn::DPAD_L, btn::LSTICK_L }, { KEY_INPUT_A, KEY_INPUT_LEFT } });
-		ins.AddMap(1, tag::MOVE_RIGHT,
-			{ { btn::DPAD_R, btn::LSTICK_R }, { KEY_INPUT_D, KEY_INPUT_RIGHT } });
-		ins.AddMap(1, tag::START,
-			{ { btn::BUTTON_7, btn::NONE }, { KEY_INPUT_RETURN, 0x00 } });
-		ins.AddMap(1, tag::SELECT,
-			{ { btn::BUTTON_6, btn::NONE }, { KEY_INPUT_BACK, KEY_INPUT_ESCAPE } });
-		ins.AddMap(1, tag::ATTACK_MAIN,
-			{ { btn::BUTTON_0, btn::NONE }, { KEY_INPUT_J, 0x00 } });
-		ins.AddMap(1, tag::ATTACK_SUB,
-			{ { btn::BUTTON_2, btn::NONE }, { KEY_INPUT_K, 0x00 } });
+		ins.AddorReplaceMap(0, tag::FPS_COUNTER,
+			{ nullBtns, { KEY_INPUT_INSERT, 0x00 } });
 
-		ins.AddMap(2, tag::MOVE_UP,
-			{ { btn::DPAD_U, btn::LSTICK_U }, nullKeys });
-		ins.AddMap(2, tag::MOVE_DOWN,
-			{ { btn::DPAD_D, btn::LSTICK_D }, nullKeys });
-		ins.AddMap(2, tag::MOVE_LEFT,
-			{ { btn::DPAD_L, btn::LSTICK_L }, nullKeys });
-		ins.AddMap(2, tag::MOVE_RIGHT,
-			{ { btn::DPAD_R, btn::LSTICK_R }, nullKeys });
-		ins.AddMap(2, tag::START,
-			{ { btn::BUTTON_7, btn::NONE }, nullKeys });
-		ins.AddMap(2, tag::SELECT,
-			{ { btn::BUTTON_6, btn::NONE }, nullKeys });
-		ins.AddMap(2, tag::ATTACK_MAIN,
-			{ { btn::BUTTON_0, btn::NONE }, nullKeys });
-		ins.AddMap(2, tag::ATTACK_SUB,
-			{ { btn::BUTTON_2, btn::NONE }, nullKeys });
+		ins.AddorReplaceMap(0, tag::DEBUG,
+			{ nullBtns, { KEY_INPUT_DELETE, 0x00 } });
+
+		{
+			ins.AddorReplaceMap(DX_INPUT_PAD1, tag::MOVE_UP,
+				{ { btn::DPAD_U, btn::LSTICK_U }, { KEY_INPUT_W, KEY_INPUT_UP } });
+
+			ins.AddorReplaceMap(DX_INPUT_PAD1, tag::MOVE_DOWN,
+				{ { btn::DPAD_D, btn::LSTICK_D }, { KEY_INPUT_S, KEY_INPUT_DOWN } });
+
+			ins.AddorReplaceMap(DX_INPUT_PAD1, tag::MOVE_LEFT,
+				{ { btn::DPAD_L, btn::LSTICK_L }, { KEY_INPUT_A, KEY_INPUT_LEFT } });
+
+			ins.AddorReplaceMap(DX_INPUT_PAD1, tag::MOVE_RIGHT,
+				{ { btn::DPAD_R, btn::LSTICK_R }, { KEY_INPUT_D, KEY_INPUT_RIGHT } });
+
+			ins.AddorReplaceMap(DX_INPUT_PAD1, tag::START,
+				{ { btn::BUTTON_7, btn::NONE }, { KEY_INPUT_RETURN, 0x00 } });
+
+			ins.AddorReplaceMap(DX_INPUT_PAD1, tag::SELECT,
+				{ { btn::BUTTON_6, btn::NONE }, { KEY_INPUT_BACK, KEY_INPUT_ESCAPE } });
+
+			ins.AddorReplaceMap(DX_INPUT_PAD1, tag::ATTACK_MAIN,
+				{ { btn::BUTTON_0, btn::NONE }, { KEY_INPUT_J, 0x00 } });
+
+			ins.AddorReplaceMap(DX_INPUT_PAD1, tag::ATTACK_SUB,
+				{ { btn::BUTTON_2, btn::NONE }, { KEY_INPUT_K, 0x00 } });
+		}
+
+		{
+			ins.AddorReplaceMap(DX_INPUT_PAD2, tag::MOVE_UP,
+				{ { btn::DPAD_U, btn::LSTICK_U }, nullKeys });
+
+			ins.AddorReplaceMap(DX_INPUT_PAD2, tag::MOVE_DOWN,
+				{ { btn::DPAD_D, btn::LSTICK_D }, nullKeys });
+
+			ins.AddorReplaceMap(DX_INPUT_PAD2, tag::MOVE_LEFT,
+				{ { btn::DPAD_L, btn::LSTICK_L }, nullKeys });
+
+			ins.AddorReplaceMap(DX_INPUT_PAD2, tag::MOVE_RIGHT,
+				{ { btn::DPAD_R, btn::LSTICK_R }, nullKeys });
+
+			ins.AddorReplaceMap(DX_INPUT_PAD2, tag::START,
+				{ { btn::BUTTON_7, btn::NONE }, nullKeys });
+
+			ins.AddorReplaceMap(DX_INPUT_PAD2, tag::SELECT,
+				{ { btn::BUTTON_6, btn::NONE }, nullKeys });
+
+			ins.AddorReplaceMap(DX_INPUT_PAD2, tag::ATTACK_MAIN,
+				{ { btn::BUTTON_0, btn::NONE }, nullKeys });
+
+			ins.AddorReplaceMap(DX_INPUT_PAD2, tag::ATTACK_SUB,
+				{ { btn::BUTTON_2, btn::NONE }, nullKeys });
+		}
 	}
+
+	// ResourceManager
+	ResourceManager::CreateInstance();
+	ResourceManager::GetInstance().Init();
 
 	// SceneManager
 	SceneManager::CreateInstance();

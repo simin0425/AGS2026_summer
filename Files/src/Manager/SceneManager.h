@@ -60,8 +60,13 @@ private:
 	bool InitClass();
 	void InitParam();
 
+	// シーン切り替え処理の準備
 	void ChangeScene(SceneBase::SCENE);
+
+	// Faderの状態に合わせて他の処理に繋げる
 	bool Fade();
+
+	// シーン切り替え処理
 	void DoChangeScene(SceneBase::SCENE);
 
 };
