@@ -5,7 +5,7 @@
 
 ResourceManager* ResourceManager::instance_ = nullptr;
 
-void ResourceManager::CreateInstance(void)
+void ResourceManager::CreateInstance()
 {
 	if (instance_ == nullptr)
 	{
@@ -13,12 +13,28 @@ void ResourceManager::CreateInstance(void)
 	}
 }
 
-ResourceManager& ResourceManager::GetInstance(void)
+ResourceManager& ResourceManager::GetInstance()
 {
 	return *instance_;
 }
 
-void ResourceManager::Init(void)
+void ResourceManager::DeleteInstance()
+{
+	if (instance_ == nullptr) return;
+
+	instance_->Release();
+	for (auto& res : instance_->resourcesMap_)
+	{
+		res.second->Release();
+		delete res.second;
+	}
+	instance_->resourcesMap_.clear();
+
+	delete instance_;
+	instance_ = nullptr;
+}
+
+void ResourceManager::Init()
 {
 
 	// „§‚µ‚Ü‚¹‚ñ‚ªA‚Ç‚¤‚µ‚Ä‚àŽg‚¢‚½‚¢•û‚Í
@@ -36,7 +52,7 @@ void ResourceManager::Init(void)
 	resourcesMap_.emplace(SRC::PLAYER, res);
 }
 
-void ResourceManager::Release(void)
+void ResourceManager::Release()
 {
 	for (auto& p : loadedMap_)
 	{
@@ -44,18 +60,6 @@ void ResourceManager::Release(void)
 	}
 
 	loadedMap_.clear();
-}
-
-void ResourceManager::Destroy(void)
-{
-	Release();
-	for (auto& res : resourcesMap_)
-	{
-		res.second->Release();
-		delete res.second;
-	}
-	resourcesMap_.clear();
-	delete instance_;
 }
 
 const Resource& ResourceManager::Load(SRC src)
@@ -82,7 +86,7 @@ int ResourceManager::LoadModelDuplicate(SRC src)
 	return duId;
 }
 
-ResourceManager::ResourceManager(void)
+ResourceManager::ResourceManager()
 {
 }
 

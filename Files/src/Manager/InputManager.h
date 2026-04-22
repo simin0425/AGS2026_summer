@@ -28,6 +28,9 @@ public:
 	enum class TAGS {
 		NONE,
 
+		FPS_COUNTER,
+		DEBUG,
+
 		START,
 		SELECT,
 
@@ -85,6 +88,7 @@ private:
 
 	const int PAD_NUM_MAX;
 
+	// タグと入力マップの対応表
 	std::vector<std::map<TAGS, INPUT_MAP>> inputMap_;
 	std::vector<Gamepad*> gamepads_;
 
