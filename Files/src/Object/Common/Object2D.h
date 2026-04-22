@@ -5,7 +5,7 @@
 class Object2D
 {
 public:
-	Object2D() = default;
+	Object2D();
 	Object2D(int image_id);
 	Object2D(std::vector<int> image_ids);
 

@@ -1,6 +1,7 @@
 #include <DxLib.h>
 #include "GameScene.h"
 #include "../../Manager/InputManager.h"
+#include "../../Manager/SceneManager.h"
 
 bool GameScene::GameInit()
 {
@@ -38,6 +39,12 @@ void GameScene::Draw()
 void GameScene::DrawUI()
 {
 	DrawString(0, 0, "GameScene", 0xffffff);
+
+    // ステージ名表示
+    const char* stageNames[] = { "ステージ１", "ステージ２", "ステージ３" };
+
+    SetFontSize(18);
+    DrawFormatString(0, 40, 0xffffff, "%s", stageNames[stageNum_]);
 }
 
 bool GameScene::Release()
