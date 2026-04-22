@@ -60,7 +60,7 @@ void SceneManager::Update()
 
 void SceneManager::Draw()
 {
-	// 画面全体を灰色で塗りつぶす
+	// 背景にグレーを表示
 	DrawBox(0, 0, 1280, 960, 0xc0c0c0, TRUE);
 
 	// 非アクティブのシーンも描画する

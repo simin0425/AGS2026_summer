@@ -18,12 +18,12 @@ void PauseScene::Update()
 
 void PauseScene::Draw()
 {
-    // 半透明の黒でゲーム画面を暗くする
+    // ゲーム画面を暗くする
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
     DrawBox(0, 0, 1280, 960, GetColor(0, 0, 0), TRUE);
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-    // 灰色のウィンドウ
+    // ウィンドウ
 	DrawBox(240, 120, 1040, 840, 0x808080, TRUE);
 
 }
