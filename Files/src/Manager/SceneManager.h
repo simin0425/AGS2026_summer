@@ -42,6 +42,8 @@ public:
 	void SetLastScore(unsigned int);
 	unsigned int GetLastScore() const;
 
+	unsigned int GetNextStartStage() const;
+
 private:
 	GameScene* game_;
 

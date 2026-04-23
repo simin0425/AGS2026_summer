@@ -26,6 +26,7 @@
     <ClCompile Include="src\Object\Common\Object2D.cpp" />
     <ClCompile Include="src\Object\ActorBase2D.cpp" />
     <ClCompile Include="src\Object\Player.cpp" />
+    <ClCompile Include="src\Scene\StageClearScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Common\Fader.h" />
@@ -52,5 +53,6 @@
     <ClInclude Include="src\Object\Common\Object2D.h" />
     <ClInclude Include="src\Object\ActorBase2D.h" />
     <ClInclude Include="src\Object\Player.h" />
+    <ClInclude Include="src\Scene\StageClearScene.h" />
   </ItemGroup>
 </Project>

@@ -44,6 +44,7 @@
     <ClCompile Include="src\Manager\SceneManager.cpp" />
     <ClCompile Include="src\Scene\SceneBase.cpp" />
     <ClCompile Include="src\Scene\TitleScene\TitleScene.cpp" />
+    <ClCompile Include="src\Scene\StageClearScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Manager\Resource.h" />
@@ -70,6 +71,7 @@
     <ClInclude Include="src\Manager\SceneManager.h" />
     <ClInclude Include="src\Scene\SceneBase.h" />
     <ClInclude Include="src\Scene\TitleScene\TitleScene.h" />
+    <ClInclude Include="src\Scene\StageClearScene.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

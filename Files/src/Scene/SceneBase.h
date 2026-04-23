@@ -8,7 +8,8 @@ public:
 		KEY_CONFIG,
 		TITLE,
 		GAME,
-		CLEAR,
+		STAGE_CLEAR,
+		GAME_CLEAR,
 		OVER,
 		SHOP,
 
@@ -32,7 +33,7 @@ public:
 	SCENE GetMyScene() const;
 	SCENE GetNextScene() const;
 
-	void SetScene(SCENE scene) { myScene_ = nextScene_ = scene;	}
+	void SetScene(SCENE scene) { myScene_ = nextScene_ = scene; }
 
 protected:
 	// é©ï™ÇÃÉVÅ[Éì
