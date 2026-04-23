@@ -1,13 +1,15 @@
 #pragma once
+#include <memory>
 #include <vector>
 #include "../../Common/Geometry.h"
+#include "Collider2D.h"
 
 class Object2D
 {
 public:
 	Object2D();
 	Object2D(int image_id);
-	Object2D(std::vector<int> image_ids);
+	Object2D(const std::vector<int>& image_ids);
 
 	void Release();
 
@@ -17,5 +19,7 @@ public:
 	Vector2 position;
 	double scale;
 	double rotation;
+
+	std::shared_ptr<Collider2D> collider;
 
 };

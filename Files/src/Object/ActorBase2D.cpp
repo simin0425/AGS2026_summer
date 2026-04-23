@@ -12,9 +12,11 @@ ActorBase2D::ActorBase2D()
 ActorBase2D::~ActorBase2D()
 {
 	object2D_.Release();
+	
+	//for (auto& c : colliders_) delete c;
 }
 
-const Object2D& ActorBase2D::GetObject() const
+const Object2D& ActorBase2D::GetObject2D() const
 {
 	return object2D_;
 }

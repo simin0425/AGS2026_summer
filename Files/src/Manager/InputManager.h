@@ -8,7 +8,7 @@
 class InputManager {
 public:
 	/// ƒVƒ“ƒOƒ‹ƒgƒ“
-	static void CreateInstance(int pad_max = PAD_NUM_MAX_DEFAULT) { if (instance_ == nullptr) instance_ = new InputManager(pad_max); instance_->Init(); }
+	static void CreateInstance(int pad_max) { if (instance_ == nullptr) instance_ = new InputManager(pad_max); instance_->Init(); }
 	static InputManager& GetInstance() { return *instance_; }
 	static void DeleteInstance() { if (instance_ != nullptr) delete instance_; instance_ = nullptr; }
 
@@ -84,7 +84,6 @@ public:
 
 private:
 	static constexpr double XINPUT_STICK_MULT = 1000.0 / (short)0x7fff;
-	static constexpr int PAD_NUM_MAX_DEFAULT = 2;
 
 	const int PAD_NUM_MAX;
 

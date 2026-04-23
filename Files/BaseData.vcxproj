@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Manager\ScoreManager.cpp" />
+    <ClCompile Include="src\Object\Common\Collider2D.cpp" />
     <ClCompile Include="src\Manager\Resource.cpp" />
     <ClCompile Include="src\Manager\ResourceManager.cpp" />
     <ClCompile Include="src\Object\ActorBase2D.cpp" />
@@ -46,6 +48,8 @@
     <ClCompile Include="src\Scene\TitleScene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Manager\ScoreManager.h" />
+    <ClInclude Include="src\Object\Common\Collider2D.h" />
     <ClInclude Include="src\Manager\Resource.h" />
     <ClInclude Include="src\Manager\ResourceManager.h" />
     <ClInclude Include="src\Object\ActorBase2D.h" />

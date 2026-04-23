@@ -21,7 +21,7 @@ Object2D::Object2D(int image_id)
 	rotation = 0.0;
 }
 
-Object2D::Object2D(std::vector<int> image_ids)
+Object2D::Object2D(const std::vector<int>& image_ids)
 {
 	handleId = -1;
 	handleIds = image_ids;

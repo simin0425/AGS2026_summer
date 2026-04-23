@@ -8,6 +8,7 @@
 #include "Manager/InputManager.h"
 #include "Manager/ResourceManager.h"
 #include "Manager/SceneManager.h"
+#include "Manager/ScoreManager.h"
 #include "Application.h"
 
 Application* Application::instance_ = nullptr;
@@ -56,6 +57,9 @@ bool Application::Release() {
 
 	SceneManager::GetInstance().Release();
 	SceneManager::DeleteInstance();
+
+	ScoreManager::GetInstance().Release();
+	ScoreManager::DeleteInstance();
 
 	// DxLib ‚Ì‰ð•ú
 	DxLib_End();
@@ -116,7 +120,7 @@ bool Application::ClassInit() {
 	FPSManager::CreateInstance();
 
 	// InputManager
-	InputManager::CreateInstance();
+	InputManager::CreateInstance(DX_INPUT_PAD2);
 	{
 		auto& ins = InputManager::GetInstance();
 		using tag = InputManager::TAGS;
@@ -192,6 +196,11 @@ bool Application::ClassInit() {
 	SceneManager::CreateInstance();
 	SceneManager::GetInstance().Init();
 
+	// ScoreManager
+	ScoreManager::CreateInstance(DX_INPUT_PAD2);
+	ScoreManager::GetInstance().Init();
+	ScoreManager::GetInstance().SetExtendScore();
+
 	return true;
 }
 
@@ -202,6 +211,8 @@ void Application::Update() {
 		InputManager::GetInstance().CheckDownKey(KEY_INPUT_INSERT));
 
 	SceneManager::GetInstance().Update();
+
+	ScoreManager::GetInstance().Update();
 }
 
 void Application::Draw() {
