@@ -13,7 +13,8 @@ public:
 	{
 		TITLE_LOGO,
 
-		PLAYER,
+		PLAYER1,
+		PLAYER2,
 	};
 
 	// 明示的にインステンスを生成する

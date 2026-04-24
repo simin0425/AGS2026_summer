@@ -56,6 +56,22 @@ unsigned int ScoreManager::GetScore(size_t index) const
 	return scores_[index];
 }
 
+std::string ScoreManager::GetScoreText(size_t index) const
+{
+	if (index >= scores_.size()) return std::string();
+
+	unsigned int score = scores_[index];
+	std::string scoreText = std::to_string(score);
+
+	// Œ…”‚ª‘«‚è‚È‚¢ê‡Aæ“ª‚É0‚ğ’Ç‰Á
+	while (scoreText.length() < SCORE_MIN_DIGIT)
+	{
+		scoreText = "0" + scoreText;
+	}
+
+	return scoreText;
+}
+
 unsigned int ScoreManager::GetHighScore() const
 {
 	return highScore_;

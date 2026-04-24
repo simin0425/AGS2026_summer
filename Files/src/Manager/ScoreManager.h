@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include <vector>
 
 class ScoreManager
@@ -27,11 +28,13 @@ public:
 
 	void AddScore(size_t index, unsigned int score);
 	unsigned int GetScore(size_t index) const;
+	std::string GetScoreText(size_t index) const;
 	unsigned int GetHighScore() const;
 	void SetExtendScore(unsigned int first = EXTEND_1ST_INIT, unsigned int second = EXTEND_2ND_INIT, unsigned int every = EXTEND_EVERY_INIT);
 
 private:
-	static constexpr unsigned int SCORE_MAX = 9999999;
+	static constexpr unsigned int SCORE_MAX = 99999999;
+	static constexpr unsigned int SCORE_MIN_DIGIT = 2;
 
 	static constexpr unsigned int EXTEND_1ST_INIT = 20000;
 	static constexpr unsigned int EXTEND_2ND_INIT = 50000;

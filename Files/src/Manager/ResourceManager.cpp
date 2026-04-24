@@ -48,8 +48,10 @@ void ResourceManager::Init()
 	resourcesMap_.emplace(SRC::TITLE_LOGO, res);
 
 	// プレイヤー自機
-	res = new RES(RES_T::IMAGE, Application::PATH_IMAGE + "Player.png");
-	resourcesMap_.emplace(SRC::PLAYER, res);
+	res = new RES(RES_T::IMAGE, Application::PATH_IMAGE + "Player1.png");
+	resourcesMap_.emplace(SRC::PLAYER1, res);
+	res = new RES(RES_T::IMAGE, Application::PATH_IMAGE + "Player2.png");
+	resourcesMap_.emplace(SRC::PLAYER2, res);
 }
 
 void ResourceManager::Release()
