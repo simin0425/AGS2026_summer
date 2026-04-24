@@ -4,6 +4,7 @@
 #include "../Scene/TitleScene/TitleScene.h"
 //#include "../Scene/DemoScene/DemoScene.h"
 #include "../Scene/GameScene/GameScene.h"
+#include "../Scene/StageClearScene.h"
 #include "../Scene/GameClearScene/GameClearScene.h"
 #include "../Scene/GameOverScene/GameOverScene.h"
 #include "../Scene/ShopScene/ShopScene.h"
@@ -69,13 +70,13 @@ void SceneManager::Draw()
 		scene->Draw();
 	}
 
-	// フェーダー等の画面エフェクトを挟む
-	fader_->Draw();
-
 	for (auto scene : sceneList_)
 	{
 		scene->DrawUI();
 	}
+
+	// フェーダー等の画面エフェクトを挟む
+	fader_->Draw();
 }
 
 bool SceneManager::Release()
@@ -246,15 +247,18 @@ void SceneManager::DoChangeScene(SceneBase::SCENE scene)
 		case SceneBase::SCENE::TITLE:
 			ret = new TitleScene();
 			break;
-		//case SceneBase::SCENE::DEMO:
-		//	ret = new DemoScene();
-		//	break;
+			//case SceneBase::SCENE::DEMO:
+			//	ret = new DemoScene();
+			//	break;
 		case SceneBase::SCENE::GAME:
 			game_ = new GameScene();
 			game_->SetStageNumber(nextStartStage_);
 			ret = dynamic_cast<SceneBase*>(game_);
 			break;
-		case SceneBase::SCENE::CLEAR:
+		case SceneBase::SCENE::STAGE_CLEAR:
+			ret = new StageClearScene();
+			break;
+		case SceneBase::SCENE::GAME_CLEAR:
 			ret = new GameClearScene();
 			break;
 		case SceneBase::SCENE::OVER:
@@ -279,4 +283,9 @@ void SceneManager::DoChangeScene(SceneBase::SCENE scene)
 	}
 
 	return;
+}
+
+unsigned int SceneManager::GetNextStartStage() const
+{
+	return nextStartStage_;
 }
