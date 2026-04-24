@@ -17,10 +17,6 @@ bool TitleScene::GameInit()
 void TitleScene::Update()
 {
     InputManager& ins = InputManager::GetInstance();
-    //// ゲームシーン
-    //if (ins.CheckDownKey(KEY_INPUT_SPACE)) {
-    //    nextScene_ = SCENE::GAME;
-    //}
 
     // メニュー選択
     switch (page_)
@@ -156,21 +152,21 @@ void TitleScene::SelectStageMenu()
         nextScene_ = SCENE::GAME;
     }
 
-	// タイトルメニューへ
+    // タイトルメニューへ
     if (ins.CheckDownKey(KEY_INPUT_ESCAPE) || ins.CheckDownKey(KEY_INPUT_BACK))
     {
         page_ = PAGE::TITLE;
-		titleMenu_ = TITLE_MENU::START;
-	}
+        titleMenu_ = TITLE_MENU::START;
+    }
 }
 
 void TitleScene::SelectExitMenu()
 {
     InputManager& ins = InputManager::GetInstance();
-	// 選択肢移動
+    // 選択肢移動
     if (ins.CheckDownKey(KEY_INPUT_UP) || ins.CheckDownKey(KEY_INPUT_W))
     {
-		// 上移動
+        // 上移動
         if (exitMenu_ != EXIT_MENU::YES)
         {
             exitMenu_ = static_cast<EXIT_MENU>(static_cast<int>(exitMenu_) - 1);
@@ -190,7 +186,7 @@ void TitleScene::SelectExitMenu()
         else
         {
             exitMenu_ = EXIT_MENU::YES;
-		}
+        }
     }
 
     // 選択肢決定
@@ -294,5 +290,5 @@ void TitleScene::DrawExitMenu()
     SetFontSize(50);
     DrawFormatString(360, 300, 0x000000, "ゲームを終了しますか？");
     DrawFormatString(590, 550, textColor1_, "はい");
-	DrawFormatString(565, 700, textColor2_, "いいえ");
+    DrawFormatString(565, 700, textColor2_, "いいえ");
 }
