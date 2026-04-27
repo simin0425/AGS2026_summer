@@ -1,5 +1,9 @@
 #pragma once
+#include <memory>
+#include <vector>
 #include "../SceneBase.h"
+
+class Player;
 
 class GameScene : public SceneBase {
 public:
@@ -17,6 +21,8 @@ public:
     void SetStageNumber(unsigned int stageNum) { stageNum_ = stageNum; }
 
 private:
+    std::vector<std::shared_ptr<Player>> players_;
+
     unsigned int stageNum_;
 
 };

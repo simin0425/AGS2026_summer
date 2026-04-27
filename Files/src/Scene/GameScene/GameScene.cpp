@@ -2,9 +2,12 @@
 #include "GameScene.h"
 #include "../../Manager/InputManager.h"
 #include "../../Manager/SceneManager.h"
+#include "../../Object/Player.h"
 
 bool GameScene::GameInit()
 {
+	players_.emplace_back(std::make_shared<Player>(1));
+    //players_.emplace_back(std::make_shared<Player>(2));
     return true;
 }
 
@@ -40,10 +43,19 @@ void GameScene::Update()
     {
         nextScene_ = SCENE::PAUSE;
     }
+
+    for (auto& player : players_)
+    {
+        player->Update();
+	}
 }
 
 void GameScene::Draw()
 {
+    for (auto& player : players_)
+    {
+        player->Draw();
+    }
 }
 
 void GameScene::DrawUI()
@@ -59,5 +71,6 @@ void GameScene::DrawUI()
 
 bool GameScene::Release()
 {
+    players_.clear();
     return true;
 }
