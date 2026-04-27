@@ -1,6 +1,7 @@
 #include <DxLib.h>
 #include "../Application.h"
 #include "../Common/Fader.h"
+#include "../Object/Player.h"
 #include "../Scene/TitleScene/TitleScene.h"
 //#include "../Scene/DemoScene/DemoScene.h"
 #include "../Scene/GameScene/GameScene.h"
@@ -45,8 +46,7 @@ void SceneManager::Update()
 		back->LateUpdate();
 
 		prevPause_ = isPause_;
-		isPause_ = back->GetMyScene() == SceneBase::SCENE::PAUSE ?
-			true : false;
+		isPause_ = back->GetMyScene() == SceneBase::SCENE::PAUSE ? true : false;
 
 		auto next = back->GetNextScene();
 
@@ -84,10 +84,10 @@ bool SceneManager::Release()
 	// シーンが無くなるまで解放する
 	while (sceneList_.size() > 0) ReleaseScene();
 
-	delete fader_;
-
 	// リストの後始末
 	sceneList_.clear();
+
+	delete fader_;
 
 	return true;
 }
@@ -225,6 +225,7 @@ bool SceneManager::Fade()
 void SceneManager::DoChangeScene(SceneBase::SCENE scene)
 {
 	SceneBase* ret = nullptr;
+	int arg = 0;
 
 	if (scene != SceneBase::SCENE::PAUSE)
 	{
@@ -251,9 +252,8 @@ void SceneManager::DoChangeScene(SceneBase::SCENE scene)
 			//	ret = new DemoScene();
 			//	break;
 		case SceneBase::SCENE::GAME:
-			game_ = new GameScene();
-			game_->SetStageNumber(nextStartStage_);
-			ret = dynamic_cast<SceneBase*>(game_);
+			ret = new GameScene();
+			arg = nextStartStage_;
 			break;
 		case SceneBase::SCENE::STAGE_CLEAR:
 			ret = new StageClearScene();
@@ -277,7 +277,7 @@ void SceneManager::DoChangeScene(SceneBase::SCENE scene)
 
 	if (ret != nullptr)
 	{
-		ret->SystemInit(scene, 0);
+		ret->SystemInit(scene, arg);
 		ret->GameInit();
 		sceneList_.push_back(ret);
 	}

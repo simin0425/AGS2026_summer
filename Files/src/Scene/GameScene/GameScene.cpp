@@ -6,12 +6,12 @@
 
 bool GameScene::GameInit()
 {
-    for (int p = 1; p <= 1; ++p)
+    for (int i = 0; i < 2; ++i)
     {
-        auto ptr = std::make_shared<Player>(p);
-        ptr->Init();
-        players_.emplace_back();
-    }
+        auto player = std::make_shared<Player>(i + 1);
+        player->Init();
+        players_.push_back(player);
+	}
 
     return true;
 }
@@ -60,7 +60,7 @@ void GameScene::Draw()
     for (auto& player : players_)
     {
         player->Draw();
-    }
+	}
 }
 
 void GameScene::DrawUI()
@@ -71,11 +71,12 @@ void GameScene::DrawUI()
     const char* stageNames[] = { "ステージ１", "ステージ２", "ステージ３" };
 
     SetFontSize(18);
-    DrawFormatString(0, 40, 0xffffff, "%s", stageNames[stageNum_]);
+    DrawFormatString(0, 40, 0xffffff, "%s", stageNames[subScene_]);
 }
 
 bool GameScene::Release()
 {
     players_.clear();
+
     return true;
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include <list>
+#include <vector>
 #include "../../Common/Geometry.h"
 
 class Collider2D
@@ -33,9 +33,9 @@ public:
 	void AddCollider(const Vector2& center, const Vector2& size);
 	void AddCollider(const Vector2& center, float radius);
 
-	std::list<COLLIDER_DATA> GetColliders() const;
+	std::vector<COLLIDER_DATA> GetColliders() const;
 
 private:
-	std::list<COLLIDER_DATA> colliders;
+	std::vector<COLLIDER_DATA> colliders;
 
 };

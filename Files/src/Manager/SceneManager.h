@@ -45,8 +45,6 @@ public:
 	unsigned int GetNextStartStage() const;
 
 private:
-	GameScene* game_;
-
 	std::list<SceneBase*> sceneList_;
 	Fader* fader_;
 

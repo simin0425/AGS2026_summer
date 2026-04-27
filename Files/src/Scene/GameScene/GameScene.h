@@ -18,11 +18,9 @@ public:
     // ‰ğ•úŠÖ”
     bool Release()  override;
 
-    void SetStageNumber(unsigned int stageNum) { stageNum_ = stageNum; }
+    void SetStageNumber(unsigned int stageNum) { subScene_ = stageNum; }
 
 private:
-    std::vector<std::shared_ptr<Player>> players_;
-
-    unsigned int stageNum_;
+	std::vector<std::shared_ptr<Player>> players_;
 
 };

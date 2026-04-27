@@ -15,6 +15,9 @@ public:
 
 	};
 
+	SceneBase();
+	virtual ~SceneBase() {}
+
 	// ƒVƒXƒeƒ€‰Šú‰»ŠÖ”
 	virtual bool SystemInit(SCENE scene, int sub_scene);
 	// ‰Šú‰»ŠÖ”

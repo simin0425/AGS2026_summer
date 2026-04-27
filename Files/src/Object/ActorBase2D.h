@@ -1,13 +1,11 @@
 #pragma once
 #include <memory>
-#include <list>
-#include "Common/Collider2D.h"
+#include <vector>
 #include "Common/Object2D.h"
 
 class ResourceManager;
 class SceneManager;
 class Collider2D;
-class Object2D;
 
 class ActorBase2D : public std::enable_shared_from_this<ActorBase2D>
 {
@@ -33,6 +31,6 @@ protected:
 	Object2D object2D_;
 
 	// Õ“Ë”»’è‚ğæ‚é‘Šè‚ÌƒRƒ‰ƒCƒ_
-	std::list<std::weak_ptr<Collider2D>> awayColliders_;
+	std::vector<std::weak_ptr<Collider2D>> awayColliders_;
 
 };

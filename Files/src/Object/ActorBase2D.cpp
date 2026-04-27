@@ -1,5 +1,6 @@
 #include "../Manager/ResourceManager.h"
 #include "../Manager/SceneManager.h"
+#include "Common/Collider2D.h"
 #include "ActorBase2D.h"
 
 ActorBase2D::ActorBase2D()
