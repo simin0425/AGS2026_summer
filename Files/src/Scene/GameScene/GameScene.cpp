@@ -6,8 +6,13 @@
 
 bool GameScene::GameInit()
 {
-	players_.emplace_back(std::make_shared<Player>(1));
-    //players_.emplace_back(std::make_shared<Player>(2));
+    for (int p = 1; p <= 1; ++p)
+    {
+        auto ptr = std::make_shared<Player>(p);
+        ptr->Init();
+        players_.emplace_back();
+    }
+
     return true;
 }
 

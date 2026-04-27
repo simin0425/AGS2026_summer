@@ -11,9 +11,9 @@ ActorBase2D::ActorBase2D()
 
 ActorBase2D::~ActorBase2D()
 {
+	awayColliders_.clear();
+
 	object2D_.Release();
-	
-	//for (auto& c : colliders_) delete c;
 }
 
 const Object2D& ActorBase2D::GetObject2D() const
