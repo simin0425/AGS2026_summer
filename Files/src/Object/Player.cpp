@@ -1,13 +1,14 @@
 #include <algorithm>
 #include <DxLib.h>
 #include "../Application.h"
+#include "../Manager/FPSManager.h"
 #include "../Manager/InputManager.h"
 #include "../Manager/ResourceManager.h"
 #include "../Manager/SceneManager.h"
 #include "Player.h"
 
 Player::Player(int player_num)
-	: PLAYER_NUM(player_num)
+	: PLAYER_NUM(std::clamp(player_num, PLAYER_NUM_MIN, PLAYER_NUM_MAX))
 {
 }
 
@@ -17,7 +18,9 @@ Player::~Player()
 
 void Player::Init()
 {
-	auto& res = resMng_.Load(ResourceManager::SRC::PLAYER);
+	auto a = (int)ResourceManager::SRC::PLAYER1 - 1;
+
+	auto& res = resMng_.Load(ResourceManager::SRC(a + PLAYER_NUM));
 	object2D_.handleId = res.handleId_;
 }
 
@@ -25,26 +28,27 @@ void Player::Update()
 {
 	auto& ins = InputManager::GetInstance();
 	using tag = InputManager::TAGS;
+	auto spd = MOVE_SPEED * FPSManager::GetInstance().GetDeltaTime();
 
 	if (ins.CheckNowMap(PLAYER_NUM, tag::MOVE_UP))
 	{
 		// ãˆÚ“®‚Ìˆ—
-		object2D_.position.y -= MOVE_SPEED;
+		object2D_.position.y -= spd;
 	}
 	if (ins.CheckNowMap(PLAYER_NUM, tag::MOVE_DOWN))
 	{
 		// ‰ºˆÚ“®‚Ìˆ—
-		object2D_.position.y += MOVE_SPEED;
+		object2D_.position.y += spd;
 	}
 	if (ins.CheckNowMap(PLAYER_NUM, tag::MOVE_LEFT))
 	{
 		// ¶ˆÚ“®‚Ìˆ—
-		object2D_.position.x -= MOVE_SPEED;
+		object2D_.position.x -= spd;
 	}
 	if (ins.CheckNowMap(PLAYER_NUM, tag::MOVE_RIGHT))
 	{
 		// ‰EˆÚ“®‚Ìˆ—
-		object2D_.position.x += MOVE_SPEED;
+		object2D_.position.x += spd;
 	}
 
 	int sizeX, sizeY;
