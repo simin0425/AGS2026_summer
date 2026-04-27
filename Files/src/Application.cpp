@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "Common/Geometry.h"
 #include "Manager/AudioManager.h"
+#include "Manager/EnemyManager.h"
 #include "Manager/FontManager.h"
 #include "Manager/FPSManager.h"
 #include "Manager/InputManager.h"
@@ -61,6 +62,9 @@ bool Application::Release() {
 	ScoreManager::GetInstance().Release();
 	ScoreManager::DeleteInstance();
 
+	EnemyManager::GetInstance().Release();
+	EnemyManager::DeleteInstance();
+
 	// DxLib ‚Ì‰ğ•ú
 	DxLib_End();
 
@@ -106,7 +110,7 @@ bool Application::SystemInit() {
 bool Application::ClassInit() {
 	// AudioManager
 	AudioManager::CreateInstance();
-	
+
 	// FontManager
 	FontManager::CreateInstance();
 	FontManager::GetInstance().Init();
@@ -201,6 +205,10 @@ bool Application::ClassInit() {
 	ScoreManager::GetInstance().Init();
 	ScoreManager::GetInstance().SetExtendScore();
 
+	// EnemyManager
+	EnemyManager::CreateInstance();
+	EnemyManager::GetInstance().Init();
+
 	return true;
 }
 
@@ -213,6 +221,8 @@ void Application::Update() {
 	SceneManager::GetInstance().Update();
 
 	ScoreManager::GetInstance().Update();
+
+	EnemyManager::GetInstance().Update();
 }
 
 void Application::Draw() {
@@ -222,10 +232,14 @@ void Application::Draw() {
 	// •`‰ææ‚Ì‰æ–Ê
 	SetDrawScreen(DX_SCREEN_BACK);
 
+
+
 	FPSManager::GetInstance().Draw(
 		FontManager::GetInstance().GetFontData("”Ä—pi¬j").handle);
 
 	SceneManager::GetInstance().Draw();
+
+	EnemyManager::GetInstance().Draw();
 
 #ifdef _DEBUG
 	Vector2 center = { SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f };
