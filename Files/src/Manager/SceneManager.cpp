@@ -1,7 +1,6 @@
 #include <DxLib.h>
 #include "../Application.h"
 #include "../Common/Fader.h"
-#include "../Object/Player.h"
 #include "../Scene/TitleScene/TitleScene.h"
 //#include "../Scene/DemoScene/DemoScene.h"
 #include "../Scene/GameScene/GameScene.h"
@@ -62,7 +61,7 @@ void SceneManager::Update()
 void SceneManager::Draw()
 {
 	// 背景にグレーを表示
-	DrawBox(0, 0, 1280, 960, 0xc0c0c0, TRUE);
+	DrawBox(0, 0, Application::SCREEN_WIDTH, Application::SCREEN_HEIGHT, 0xc0c0c0, TRUE);
 
 	// 非アクティブのシーンも描画する
 	for (auto scene : sceneList_)
