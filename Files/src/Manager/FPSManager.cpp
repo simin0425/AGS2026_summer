@@ -11,23 +11,26 @@ FPSManager::FPSManager(unsigned int fps) :
     timeList_(),
     prevTime_(),
     showFPS_(0.0F),
-    showFlag_(false) {
+    showFlag_(false)
+{
     // êÇíºìØä˙Çñ≥å¯âª
     SetWaitVSyncFlag(false);
 }
 
 FPSManager::~FPSManager() {}
 
-void FPSManager::Update(bool show_key) {
+void FPSManager::Update(bool show_key)
+{
     if (show_key) showFlag_ = !(showFlag_);
 }
 
-void FPSManager::Draw(int handle) {
-    if (showFlag_)
-        DrawFormatStringToHandle(10, 10, 0xFFFFFFU, handle, "FPS: %.2f", showFPS_);
+void FPSManager::Draw(int handle)
+{
+    if (showFlag_) DrawFormatStringToHandle(10, 10, 0xFFFFFFU, handle, "FPS: %.2f", showFPS_);
 }
 
-void FPSManager::CheckWait() {
+void FPSManager::CheckWait()
+{
     // åªç›éûä‘
     auto nowTime = std::chrono::high_resolution_clock::now();
 
@@ -77,15 +80,21 @@ void FPSManager::CheckWait() {
     showFPS_ = static_cast<float>(timeList_.size() / total);
 }  
 
-bool FPSManager::Release() {
+bool FPSManager::Release()
+{
     timeList_.clear();
 
     return true;
 }
 
-double FPSManager::GetDeltaTime() { return IDEAL_FRAME_SECOND; }
+double FPSManager::GetDeltaTime() const
+{
+    return timeList_.back() < IDEAL_FRAME_SECOND ?
+        timeList_.back() : IDEAL_FRAME_SECOND;
+}
 
-void FPSManager::RegisterTime(const double delta_time) {
+void FPSManager::RegisterTime(const double delta_time)
+{
     timeList_.emplace_back(delta_time);
 
     while (timeList_.size() > TARGET_FPS)

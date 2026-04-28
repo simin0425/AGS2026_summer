@@ -195,7 +195,7 @@ bool SceneManager::Fade()
 			}
 			else
 			{
-				Application::GetInstance().Quit();
+				Application::GetInstance().Exit();
 				return true;
 			}
 		}

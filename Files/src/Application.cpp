@@ -18,7 +18,13 @@ const std::string Application::PATH_IMAGE = "Data/Image/";
 const std::string Application::PATH_MODEL = "Data/Model/";
 const std::string Application::PATH_EFFECT = "Data/Effect/";
 
-bool Application::Init() {
+Application::Application()
+{
+	exit_ = false;
+}
+
+bool Application::Init()
+{
 	// システム初期化
 	if (SystemInit() == false) return false;
 
@@ -28,8 +34,10 @@ bool Application::Init() {
 	return true;
 }
 
-void Application::GameLoop() {
-	while (!ProcessMessage() && !exit_) {
+void Application::GameLoop()
+{
+	while (!ProcessMessage() && !exit_)
+	{
 		// 更新処理
 		Update();
 
@@ -41,7 +49,8 @@ void Application::GameLoop() {
 	}
 }
 
-bool Application::Release() {
+bool Application::Release()
+{
 	AudioManager::DeleteInstance();
 
 	FontManager::GetInstance().Release();
@@ -71,13 +80,15 @@ bool Application::Release() {
 	return true;
 }
 
-void Application::Quit() {
+void Application::Exit()
+{
 	exit_ = true;
 }
 
-bool Application::SystemInit() {
+bool Application::SystemInit()
+{
 	// ウインドウの名称
-	SetWindowText("知性の立方体");
+	SetWindowText("Shooooooot'Em Up!");
 
 	// 画面設定
 	SetGraphMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32);
@@ -91,8 +102,8 @@ bool Application::SystemInit() {
 	// DxLib の初期化
 	if (DxLib_Init() == -1) return false;
 
-	// 離脱変数
-	exit_ = false;
+	// 非同期読み込み
+	//SetUseASyncLoadFlag(true);
 
 	// 乱数生成処理の初期化
 	// 非決定的な乱数
@@ -107,7 +118,8 @@ bool Application::SystemInit() {
 	return true;
 }
 
-bool Application::ClassInit() {
+bool Application::ClassInit()
+{
 	// AudioManager
 	AudioManager::CreateInstance();
 
@@ -115,13 +127,8 @@ bool Application::ClassInit() {
 	FontManager::CreateInstance();
 	FontManager::GetInstance().Init();
 
-	FontManager::GetInstance().AddFont("ロゴ", "ＭＳ 明朝", 80, 6, DX_FONTTYPE_ANTIALIASING_EDGE);
-	FontManager::GetInstance().AddFont("汎用", "ＭＳ ゴシック", 48, 5, DX_FONTTYPE_ANTIALIASING_EDGE);
-	FontManager::GetInstance().AddFont("汎用（小）", "ＭＳ ゴシック", 24, 5, DX_FONTTYPE_ANTIALIASING_EDGE);
-	FontManager::GetInstance().AddFont("汎用（大）", "ＭＳ ゴシック", 64, 5, DX_FONTTYPE_ANTIALIASING_EDGE);
-
 	// FPSManager
-	FPSManager::CreateInstance();
+	FPSManager::CreateInstance(GetRefreshRate());
 
 	// InputManager
 	InputManager::CreateInstance(DX_INPUT_PAD2);
@@ -212,11 +219,12 @@ bool Application::ClassInit() {
 	return true;
 }
 
-void Application::Update() {
+void Application::Update()
+{
 	InputManager::GetInstance().Update();
 
 	FPSManager::GetInstance().Update(
-		InputManager::GetInstance().CheckDownKey(KEY_INPUT_INSERT));
+		InputManager::GetInstance().CheckDownMap(0, InputManager::TAGS::FPS_COUNTER));
 
 	SceneManager::GetInstance().Update();
 
@@ -225,21 +233,20 @@ void Application::Update() {
 	EnemyManager::GetInstance().Update();
 }
 
-void Application::Draw() {
+void Application::Draw()
+{
 	// 描画先の画面をクリア
 	ClearDrawScreen();
 
 	// 描画先の画面
 	SetDrawScreen(DX_SCREEN_BACK);
 
-
-
-	FPSManager::GetInstance().Draw(
-		FontManager::GetInstance().GetFontData("汎用（小）").handle);
-
 	SceneManager::GetInstance().Draw();
 
 	EnemyManager::GetInstance().Draw();
+
+	FPSManager::GetInstance().Draw(
+		FontManager::GetInstance().GetFontHandle(FontManager::TAGS::GENERAL_SMALL));
 
 #ifdef _DEBUG
 	Vector2 center = { SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f };

@@ -21,8 +21,8 @@ public:
 	// 解放
 	bool Release();
 
-	// デルタタイム取得（外部クラス向け）
-	double GetDeltaTime();
+	// デルタタイム取得（実際にFPSから算出）
+	double GetDeltaTime() const;
 
 private:
 	// インスタンス
