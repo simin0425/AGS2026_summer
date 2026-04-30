@@ -85,6 +85,8 @@ public:
 private:
 	static constexpr double XINPUT_STICK_MULT = 1000.0 / (short)0x7fff;
 
+	static constexpr int KEYBOARD_NUM = 0;
+	static constexpr int PAD_NUM_MIN = 1;
 	const int PAD_NUM_MAX;
 
 	// タグと入力マップの対応表

@@ -89,8 +89,15 @@ bool FPSManager::Release()
 
 double FPSManager::GetDeltaTime() const
 {
-    return timeList_.back() < IDEAL_FRAME_SECOND ?
-        timeList_.back() : IDEAL_FRAME_SECOND;
+    // 可変フレームレート制御用のデルタタイム
+    if (timeList_.back() < IDEAL_FRAME_SECOND * 2)
+    {
+        // IDEAL_FRAME_SECONDの2倍までは、可変フレームレートで対応する
+        return timeList_.back();
+    }
+    // それ以上の場合、固定でIDEAL_FRAME_SECONDの2倍を返す(処理落ちする)
+    // ※2Dゲームの判定抜けを防止するため
+    return IDEAL_FRAME_SECOND * 2;
 }
 
 void FPSManager::RegisterTime(const double delta_time)

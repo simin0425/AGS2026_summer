@@ -17,14 +17,14 @@ InputManager::InputManager(int pad_max)
 	gamepads_.resize(PAD_NUM_MAX);
 
 	// キー入力の状態を初期化
-	nowKey_.fill(0);
-	prevKey_.fill(0);
+	nowKey_.fill(false);
+	prevKey_.fill(false);
 }
 
 bool InputManager::Init()
 {
 	// DxLib上ではゲームパッドは1から始まる
-	for (int i = 1; i < gamepads_.size(); ++i)
+	for (int i = PAD_NUM_MIN; i < gamepads_.size(); ++i)
 	{
 		gamepads_[i] = new Gamepad(i);
 	}
@@ -38,7 +38,7 @@ void InputManager::Update()
 
 	// ゲームパッドの状態を更新
 	// ※gamepads_[0]はnullptrなので接触しないように注意
-	for (int i = 1; i < gamepads_.size(); ++i)
+	for (int i = PAD_NUM_MIN; i < gamepads_.size(); ++i)
 	{
 		gamepads_[i]->Update();
 	}
@@ -60,14 +60,14 @@ bool InputManager::Release()
 
 void InputManager::AddorReplaceMap(int pad_num, TAGS tag, INPUT_MAP map)
 {
-	if (pad_num < 0 || pad_num >= PAD_NUM_MAX) return;
+	if (pad_num < KEYBOARD_NUM || pad_num >= PAD_NUM_MAX) return;
 
 	inputMap_[pad_num][tag] = map;
 }
 
 void InputManager::AddMap(int pad_num, TAGS tag, INPUT_MAP map)
 {
-	if (pad_num < 0 || pad_num >= PAD_NUM_MAX) return;
+	if (pad_num < KEYBOARD_NUM || pad_num >= PAD_NUM_MAX) return;
 
 	if (inputMap_[pad_num].find(tag) != inputMap_[pad_num].end()) return;
 
@@ -76,7 +76,7 @@ void InputManager::AddMap(int pad_num, TAGS tag, INPUT_MAP map)
 
 void InputManager::ReplaceMap(int pad_num, TAGS tag, INPUT_MAP map)
 {
-	if (pad_num < 0 || pad_num >= PAD_NUM_MAX) return;
+	if (pad_num < KEYBOARD_NUM || pad_num >= PAD_NUM_MAX) return;
 
 	auto it = inputMap_[pad_num].find(tag);
 
@@ -86,7 +86,7 @@ void InputManager::ReplaceMap(int pad_num, TAGS tag, INPUT_MAP map)
 
 void InputManager::ReplaceButtonMap(int pad_num, TAGS tag, PAD_MAP_ARRAY replace)
 {
-	if (pad_num < 0 || pad_num >= PAD_NUM_MAX) return;
+	if (pad_num < KEYBOARD_NUM || pad_num >= PAD_NUM_MAX) return;
 
 	auto it = inputMap_[pad_num].find(tag);
 
@@ -96,7 +96,7 @@ void InputManager::ReplaceButtonMap(int pad_num, TAGS tag, PAD_MAP_ARRAY replace
 
 void InputManager::ReplaceButtonMap(int pad_num, TAGS tag, Gamepad::RAW_BUTTON replace, size_t index)
 {
-	if (pad_num < 0 || pad_num >= PAD_NUM_MAX) return;
+	if (pad_num < KEYBOARD_NUM || pad_num >= PAD_NUM_MAX) return;
 
 	auto it = inputMap_[pad_num].find(tag);
 
@@ -106,7 +106,7 @@ void InputManager::ReplaceButtonMap(int pad_num, TAGS tag, Gamepad::RAW_BUTTON r
 
 void InputManager::ReplaceKeyMap(int pad_num, TAGS tag, KEY_MAP_ARRAY replace)
 {
-	if (pad_num < 0 || pad_num >= PAD_NUM_MAX) return;
+	if (pad_num < KEYBOARD_NUM || pad_num >= PAD_NUM_MAX) return;
 
 	auto it = inputMap_[pad_num].find(tag);
 
@@ -116,7 +116,7 @@ void InputManager::ReplaceKeyMap(int pad_num, TAGS tag, KEY_MAP_ARRAY replace)
 
 void InputManager::ReplaceKeyMap(int pad_num, TAGS tag, int replace, size_t index)
 {
-	if (pad_num < 0 || pad_num >= PAD_NUM_MAX) return;
+	if (pad_num < KEYBOARD_NUM || pad_num >= PAD_NUM_MAX) return;
 
 	auto it = inputMap_[pad_num].find(tag);
 
@@ -126,14 +126,14 @@ void InputManager::ReplaceKeyMap(int pad_num, TAGS tag, int replace, size_t inde
 
 bool InputManager::CheckNowMap(int pad_num, TAGS tag) const
 {
-	if (pad_num < 0 || pad_num >= PAD_NUM_MAX) return false;
+	if (pad_num < KEYBOARD_NUM || pad_num >= PAD_NUM_MAX) return false;
 
 	auto it = inputMap_[pad_num].find(tag);
 
 	if (it != inputMap_[pad_num].end())
 	{
 		int p1 = 0, p2 = 0;
-		if (pad_num > 0)
+		if (pad_num > KEYBOARD_NUM)
 		{
 			p1 = gamepads_[pad_num]->NowButton((*it).second.padMap[0]);
 			p2 = gamepads_[pad_num]->NowButton((*it).second.padMap[1]);
@@ -148,14 +148,14 @@ bool InputManager::CheckNowMap(int pad_num, TAGS tag) const
 
 bool InputManager::CheckPrevMap(int pad_num, TAGS tag) const
 {
-	if (pad_num < 0 || pad_num >= PAD_NUM_MAX) return false;
+	if (pad_num < KEYBOARD_NUM || pad_num >= PAD_NUM_MAX) return false;
 
 	auto it = inputMap_[pad_num].find(tag);
 
 	if (it != inputMap_[pad_num].end())
 	{
 		int p1 = 0, p2 = 0;
-		if (pad_num > 0)
+		if (pad_num > KEYBOARD_NUM)
 		{
 			p1 = gamepads_[pad_num]->PrevButton((*it).second.padMap[0]);
 			p2 = gamepads_[pad_num]->PrevButton((*it).second.padMap[1]);
@@ -170,7 +170,7 @@ bool InputManager::CheckPrevMap(int pad_num, TAGS tag) const
 
 bool InputManager::CheckDownMap(int pad_num, TAGS tag) const
 {
-	if (pad_num < 0 || pad_num >= PAD_NUM_MAX) return false;
+	if (pad_num < KEYBOARD_NUM || pad_num >= PAD_NUM_MAX) return false;
 
 	auto it = inputMap_[pad_num].find(tag);
 
